@@ -1,0 +1,106 @@
+[2024-11-08 22:40:13] Server sedang berjalan
+[2024-11-08 22:40:56] Proses accept dari 127.0.0.1
+[2024-11-08 22:40:56] Request Line : GET / HTTP/1.1
+[2024-11-08 22:40:56] Response : HTTP/1.1 200 OK
+[2024-11-08 22:40:56] Proses accept dari 127.0.0.1
+[2024-11-08 22:40:56] Request Line : GET /style.css HTTP/1.1
+[2024-11-08 22:40:56] Response : HTTP/1.1 200 OK
+[2024-11-08 22:40:56] Proses accept dari 127.0.0.1
+[2024-11-08 22:40:56] Request Line : GET /cameraman.png HTTP/1.1
+[2024-11-08 22:40:56] Response : HTTP/1.1 200 OK
+[2024-11-08 22:49:17] Server sedang berjalan
+[2024-11-08 22:49:24] Proses accept dari 127.0.0.1
+[2024-11-08 22:49:24] Request Line : GET / HTTP/1.1
+[2024-11-08 22:49:24] Response : HTTP/1.1 200 OK
+[2024-11-08 22:49:24] Proses accept dari 127.0.0.1
+[2024-11-08 22:49:24] Request Line : GET /style.css HTTP/1.1
+[2024-11-08 22:49:24] Response : HTTP/1.1 200 OK
+[2024-11-08 22:49:24] Proses accept dari 127.0.0.1
+[2024-11-08 22:49:24] Request Line : GET /cameraman.png HTTP/1.1
+[2024-11-08 22:49:24] Response : HTTP/1.1 200 OK
+[2024-11-08 22:49:25] Proses accept dari 127.0.0.1
+[2024-11-08 22:49:26] Request Line : GET /about.html HTTP/1.1
+[2024-11-08 22:49:26] Response : HTTP/1.1 200 OK
+[2024-11-08 22:49:26] Proses accept dari 127.0.0.1
+[2024-11-08 22:49:27] Proses accept dari 127.0.0.1
+[2024-11-08 22:49:27] Request Line : GET /contact.html HTTP/1.1
+[2024-11-08 22:49:27] Response : HTTP/1.1 404 Not Found
+[2024-11-08 22:54:01] Server sedang berjalan
+[2024-11-08 22:54:05] Proses accept dari 127.0.0.1
+[2024-11-08 22:54:05] Proses accept dari 127.0.0.1
+[2024-11-08 22:54:05]  * Request Line : GET /about.html HTTP/1.1
+[2024-11-08 22:54:05]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:54:32] Proses accept dari 127.0.0.1
+[2024-11-08 22:54:32]  * Request Line : GET /about.html HTTP/1.1
+[2024-11-08 22:54:32]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:54:34] Proses accept dari 127.0.0.1
+[2024-11-08 22:54:34]  * Request Line : GET /index.html HTTP/1.1
+[2024-11-08 22:54:34]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:54:34]  * Request Line : GET /style.css HTTP/1.1
+[2024-11-08 22:54:34]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:54:34] Proses accept dari 127.0.0.1
+[2024-11-08 22:54:34]  * Request Line : GET /cameraman.png HTTP/1.1
+[2024-11-08 22:54:34]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:57:49] Proses accept dari 127.0.0.1
+[2024-11-08 22:57:49] Proses accept dari 127.0.0.1
+[2024-11-08 22:57:49]  * Request Line : GET /index.html HTTP/1.1
+[2024-11-08 22:57:49]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:57:49]  * Request Line : GET /style.css HTTP/1.1
+[2024-11-08 22:57:49]  * Response : HTTP/1.1 200 OK
+[2024-11-08 22:57:49] Proses accept dari 127.0.0.1
+[2024-11-08 22:57:49]  * Request Line : GET /cameraman.png HTTP/1.1
+[2024-11-08 22:57:49]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:05:07] Proses accept dari 127.0.0.1
+[2024-11-08 23:05:07]  * Request Line : GET /index.html HTTP/1.1
+[2024-11-08 23:05:07]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:05:07] Proses accept dari 127.0.0.1
+[2024-11-08 23:05:07]  * Request Line : GET /style.css HTTP/1.1
+[2024-11-08 23:05:07]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:05:07] Proses accept dari 127.0.0.1
+[2024-11-08 23:05:07]  * Request Line : GET /cameraman.png HTTP/1.1
+[2024-11-08 23:05:07]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:05:10] Proses accept dari 127.0.0.1
+[2024-11-08 23:05:10]  * Request Line : GET /login.html HTTP/1.1
+[2024-11-08 23:05:10]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:05:18] Proses accept dari 127.0.0.1
+[2024-11-08 23:05:18] Proses accept dari 127.0.0.1
+[2024-11-08 23:05:18]  * Request Line : POST /test_post.php HTTP/1.1
+[2024-11-08 23:05:18]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:06:10]  * Request Line : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-08 23:06:10]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:06:10] Proses accept dari 127.0.0.1
+[2024-11-08 23:07:13]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-08 23:07:13] Proses accept dari 127.0.0.1
+[2024-11-08 23:07:13] Proses accept dari 127.0.0.1
+[2024-11-08 23:07:13]  * Request Line : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-08 23:07:13]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:08:57]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-08 23:09:13] Server sedang berjalan
+[2024-11-08 23:09:17] Proses accept dari 127.0.0.1
+[2024-11-08 23:09:17] Proses accept dari 127.0.0.1
+[2024-11-08 23:09:17]  * Request Line : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-08 23:09:17]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:09:17] HTTP/1.1 200 OK
+Content-Type: text/html
+Connection: close
+Cache-Control: no-cache
+Response-Time: Fri, 08 Nov 2024 16:09:17.758 GMT
+
+
+[2024-11-08 23:10:57]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-08 23:12:32] Server sedang berjalan
+[2024-11-08 23:12:36] Proses accept dari 127.0.0.1
+[2024-11-08 23:12:36] Proses accept dari 127.0.0.1
+[2024-11-08 23:12:36]  * Request Line : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-08 23:12:36]  * Response : HTTP/1.1 200 OK
+[2024-11-08 23:12:36] HTTP/1.1 200 OK
+Content-Type: text/html
+Connection: close
+Cache-Control: no-cache
+Response-Time: Fri, 08 Nov 2024 16:12:36.620 GMT
+
+<p>Eksekusi perintah : php -r 'parse_str("nama=eko&alamat=malang", $_GET);parse_str("", $_POST);include "/home/eko/socket_programming/bab_7/test_get.php";'</p>
+<h1>Hello World</h1>
+<h1>Nama anda : eko</h1>
+<p>Alamat anda : malang</p>
+
