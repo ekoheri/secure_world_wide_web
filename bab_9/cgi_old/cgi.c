@@ -38,7 +38,7 @@ char *run_php_script(
     printf("<p>Eksekusi perintah : %s</p>\n", command);
 
     // Buffer untuk menyimpan seluruh respons
-    char *response = (char *)malloc(RESPONSE_BUFFER);
+    char *response = (char *)malloc(MAX_BUFFER);
     if (response == NULL) {
         perror("malloc");
         exit(EXIT_FAILURE);
@@ -63,7 +63,7 @@ char *run_php_script(
             has_error = 1;  // Tandai bahwa ada error
         } else {
             // Tambahkan hasil ke response buffer
-            strncat(response, result, RESPONSE_BUFFER - strlen(response) - 1);
+            strncat(response, result, MAX_BUFFER - strlen(response) - 1);
         }
     }
 
@@ -75,7 +75,7 @@ char *run_php_script(
 
     // Jika ada error, tambahkan pesan error ke response
     if (has_error) {
-        snprintf(response + strlen(response), RESPONSE_BUFFER - strlen(response) - 1,
+        snprintf(response + strlen(response), MAX_BUFFER - strlen(response) - 1,
                  "<p>Terjadi kesalahan dalam menjalankan skrip PHP.</p>\n");
     }
 

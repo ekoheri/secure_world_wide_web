@@ -1,44 +1,10 @@
+#include "http.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <string.h> // string manipulation
 #include <time.h>
 #include <sys/time.h>
-#include <sys/stat.h>
-
-#include "http.h"
-#include "keygen/keygen.h"
-#include "hash/sha256.h" 
-#include "enkripsi/chacha20.h"
-
-#define CHACHA20_KEY_SIZE 32
-#define CHACHA20_NONCE_SIZE 8
-
-char *trim(char *str) {
-    char *end;
-
-    // Hapus spasi di depan
-    while (isspace((unsigned char)*str)) {
-        str++;
-    }
-
-    // Jika hanya ada spasi
-    if (*str == 0) {
-        return str;
-    }
-
-    // Hapus spasi di belakang
-    end = str + strlen(str) - 1;
-    while (end > str && isspace((unsigned char)*end)) {
-        end--;
-    }
-
-    // Tambahkan null-terminator setelah karakter terakhir yang bukan spasi
-    *(end + 1) = '\0';
-
-    return str;
-}
 
 RequestHeader parse_request_line(char *request) {
     RequestHeader req_header = {
@@ -46,6 +12,7 @@ RequestHeader parse_request_line(char *request) {
         .uri = "",
         .http_version = ""
     };
+
     char request_message[BUFFER_SIZE];
     char request_line[BUFFER_SIZE];
     char *words[3] = {NULL, NULL, NULL};
@@ -69,7 +36,8 @@ RequestHeader parse_request_line(char *request) {
 
     //log
     printf(" * Request : %s\n", request_line);
-     // Pilah request line berdasarkan spasi
+
+    // Pilah request line berdasarkan spasi
     int i = 0;
     char *token = strtok(request_line, " ");
     while (token != NULL && i < 3) {
@@ -110,7 +78,7 @@ RequestHeader parse_request_line(char *request) {
         // Pindahkan pointer ke awal body data
         body_start += 4; // Melewati CRLF CRLF
         // Salin data POST dari body
-        strcpy(req_header.post_data, trim(body_start));
+        strcpy(req_header.post_data, body_start);
     } else {
         req_header.post_data[0] = '\0'; // Tidak ada body data
     }
@@ -134,7 +102,6 @@ const char *get_mime_type(const char *file) {
     else if (strcmp(dot, ".html") == 0) return "text/html";
     else if (strcmp(dot, ".css") == 0) return "text/css";
     else if (strcmp(dot, ".js") == 0) return "application/js";
-    else if (strcmp(dot, ".json") == 0) return "application/json";
     else if (strcmp(dot, ".jpg") == 0) return "image/jpeg";
     else if (strcmp(dot, ".png") == 0) return "image/png";
     else if (strcmp(dot, ".gif") == 0) return "image/gif";
@@ -176,105 +143,44 @@ char *generate_response_header(ResponseHeader res_header) {
         header, BUFFER_SIZE,
         "%s %d %s\r\n"
         "Content-Type: %s\r\n"
-        "Content-Length: %lu\r\n"
         "Connection: close\r\n"
         "Cache-Control: no-cache\r\n"
-        "Encrypted: %s\r\n"
-        "Public-Key: %s\r\n"
         "Response-Time: %s\r\n"
         "\r\n",  // Akhir dari header
         res_header.http_version, res_header.status_code, 
-        res_header.status_message, res_header.mime_type, 
-        res_header.content_length, res_header.encrypted, 
-        res_header.public_key, responseTime);
+        res_header.status_message, res_header.mime_type, responseTime);
     
     // responseTime harus di-free, karena menggunakan malloc
     free(responseTime);
     return header;
 }
 
-// Fungsi untuk membuat response lengkap (header + body) dengan enkripsi
-char *create_response(
-    int *response_size, 
-    ResponseHeader *res_header, 
-    const char *body, int body_size, int encrypt) {
-
+char *create_response(int *response_size, const ResponseHeader *res_header, const char *body, int body_size) {
     char *response = NULL;
 
-    // If encryption is needed for HTML only
-    char *final_body;
-    char *keystream;
-    int final_body_size;
-    if (encrypt == 1) {
-        char *otp = generate_otp();
-        char *public_key = sengkalan_encode(otp);
-        res_header->encrypted = "yes";
-        res_header->public_key = public_key;
-
-        // Hash OTP
-        char *key_hex = sha256_hash(otp);
-
-        // Key & Noce Chacha20
-        uint8_t key[CHACHA20_KEY_SIZE];
-        uint8_t nonce[CHACHA20_NONCE_SIZE] = {
-            0x48, 0x4e, 0x37, 0x39, 0x32, 0x30, 0x31, 0x36
-        };
-        uint32_t counter = 1;
-
-        hex_to_bytes(key_hex, key, 32);
-        final_body = chacha20_encrypt(body, key, nonce, counter);
-
-        if (!final_body) {
-            return NULL;
-        }
-        final_body_size = strlen(final_body);
-    } else {
-        final_body = (char *)body;  // Use body directly if not encrypted
-        final_body_size = body_size;
-    }
-
     // Generate response header
-    res_header->content_length = body_size;
     char *response_header = generate_response_header(*res_header);
-    if (!response_header) {
-        return NULL;  // Return NULL if header generation fails
-    }
+    if (!response_header) return NULL;
 
     // Allocate memory for full response
     int header_size = strlen(response_header);
-    response = (char *)malloc(header_size + final_body_size);
-    if (response == NULL) {
-        // Memory allocation failed
-        free(response_header);
-        if (encrypt == 1) {
-            free(final_body);  // Free encrypted body if allocated
-        }
-        return NULL;
+    response = (char *)malloc(header_size + body_size);
+    if (response) {
+        memcpy(response, response_header, header_size);   // Copy header
+        memcpy(response + header_size, body, body_size);  // Copy body
+        *response_size = header_size + body_size;
     }
 
-    // Copy header and body to response
-    memcpy(response, response_header, header_size); // Copy header
-    memcpy(response + header_size, final_body, final_body_size); // Copy body
-    *response_size = header_size + final_body_size;
-
-    // Free resources
     free(response_header);
-    if (strcmp(res_header->encrypted, "yes") == 0) {
-        free(final_body);  // Free encrypted body only if it was allocated
-    }
 
-    // Log
-    printf(" * Response : %s %d %s\n", 
-           res_header->http_version, 
-           res_header->status_code, 
-           res_header->status_message);
-
+    //log
+    printf(" * Response : %s %d %s\n", res_header->http_version, res_header->status_code, res_header->status_message);
     return response;
 }
 
-// Fungsi utama untuk menangani metode
 char *handle_method(int *response_size, RequestHeader req_header) {
-    char *response = NULL;
+    char *response = NULL;  // Single pointer untuk response
+    char *response_header = NULL;
 
     // Pengecekan apakah method, uri, atau http_version kosong
     // Jika iya maka response 400 Bad Request
@@ -283,20 +189,19 @@ char *handle_method(int *response_size, RequestHeader req_header) {
             .http_version = "HTTP/1.1",
             .status_code = 400,
             .status_message = "Bad Request",
-            .mime_type = "text/html",
-            .content_length = 0,
-            .encrypted = "no",
-            .public_key = ""
+            .mime_type = "text/html"
         };
 
         char *_400 = "<h1>400 Bad Request</h1>";
-        response = create_response(response_size, &res_header, _400, strlen(_400), 0);
+        response = create_response(response_size, &res_header, _400, strlen(_400));
         return response;
     }
 
-    // Buka file yang diminta oleh web browser
+    // Buka file (resource) yang diminta oleh web browser
     char fileURL[100];
-    snprintf(fileURL, sizeof(fileURL), "%s%s", FOLDER_DOCUMENT, req_header.uri);
+    snprintf(fileURL, 
+        sizeof(fileURL), "%s%s", 
+        FOLDER_DOCUMENT, req_header.uri);
     FILE *file = fopen(fileURL, "rb");
 
     // Jika file tidak ditemukan, kirimkan status 404 Not Found
@@ -305,18 +210,17 @@ char *handle_method(int *response_size, RequestHeader req_header) {
             .http_version = req_header.http_version,
             .status_code = 404,
             .status_message = "Not Found",
-            .mime_type = "text/html",
-            .content_length = 0,
-            .encrypted = "no",
-            .public_key = ""
+            .mime_type = "text/html"
         };
 
         char *_404 = "<h1>Not Found</h1>";
-        response = create_response(response_size, &res_header, _404 , strlen(_404), 0);
+        response = create_response(response_size, &res_header, _404 , strlen(_404));
         return response;
-    }
+    } 
 
+    // Jika file resource ditemukan
     if (file) {
+        //Jika ekstensinya PHP, maka jalankan CGI
         const char *extension = strrchr(req_header.uri, '.');
         if (extension && strcmp(extension, ".php") == 0) {
             // Jalankan CGI
@@ -328,7 +232,7 @@ char *handle_method(int *response_size, RequestHeader req_header) {
                 " --data_post=\"%s\"",
                 CGI_PATH, fileURL, req_header.method, 
                 req_header.query_string, req_header.post_data);
-
+                
             FILE *fp = popen(command, "r");
             if (!fp) {
                 perror("popen");
@@ -351,26 +255,22 @@ char *handle_method(int *response_size, RequestHeader req_header) {
                 .http_version = req_header.http_version,
                 .status_code = 200,
                 .status_message = "OK",
-                .mime_type = "text/html",
-                .content_length = 0,
-                .encrypted = "",
-                .public_key = ""
+                .mime_type = "text/html"
             };
             
-            response = create_response(response_size, &res_header, response_body, output_len, 1);
+            response = create_response(response_size, &res_header, response_body, output_len);
             return response;
         } else {
+            // Jika file resource ditemukan
             // Ambil data MIME type
             const char *mime = get_mime_type(req_header.uri);
 
+            // Generate header 200 OK
             ResponseHeader res_header = {
                 .http_version = req_header.http_version,
                 .status_code = 200,
                 .status_message = "OK",
-                .mime_type = mime,
-                .content_length = 0,
-                .encrypted = "",
-                .public_key = ""
+                .mime_type = mime
             };
 
             // Baca file resource dari server
@@ -382,13 +282,9 @@ char *handle_method(int *response_size, RequestHeader req_header) {
             fread(response_body, 1, fsize, file);
             fclose(file);
 
-            int encrypt = 0;
-            if (strcmp(mime, "text/html") == 0)
-                encrypt = 1;
-
-            response = create_response(response_size, &res_header, response_body, fsize, encrypt);
+            response = create_response(response_size, &res_header, response_body, fsize);
             free(response_body);
-            return response;
+            return response;  // Kembalikan response sebagai return value
         } // end if not php
     } //end if found
-} //end handle_method
+}

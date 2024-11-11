@@ -2,13 +2,13 @@
 #define HTTP_H
 
 #define BUFFER_SIZE 1024
-// #define FOLDER_DOCUMENT "/home/eko/socket_programming/bab_7/"
-// #define CGI_PATH "cgi/cgi"
+#define FOLDER_DOCUMENT "/home/eko/socket_programming/bab_7/"
+#define CGI_PATH "cgi/cgi"
 
 typedef struct {
-    char method[256];
+    char method[BUFFER_SIZE];
     char uri[BUFFER_SIZE];
-    char http_version[256];
+    char http_version[BUFFER_SIZE];
     char query_string[BUFFER_SIZE];
     char post_data[BUFFER_SIZE];
 } RequestHeader;

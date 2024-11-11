@@ -1,10 +1,15 @@
-#include "http.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <string.h> // string manipulation
 #include <time.h>
 #include <sys/time.h>
+
+#include "http.h"
+#include "config.h"
+#include "log.h"
+
+extern Config config;
 
 RequestHeader parse_request_line(char *request) {
     RequestHeader req_header = {
@@ -35,7 +40,7 @@ RequestHeader parse_request_line(char *request) {
     request_line[BUFFER_SIZE - 1] = '\0';
 
     //log
-    printf(" * Request : %s\n", request_line);
+    write_log(" * Request : %s\n", request_line);
 
     // Pilah request line berdasarkan spasi
     int i = 0;
@@ -92,7 +97,7 @@ RequestHeader parse_request_line(char *request) {
     return req_header;  // Kembalikan struct
 }
 
-const char *get_mime_type(const char *file) {
+/*const char *get_mime_type(const char *file) {
     // Cari extension dari file
     const char *dot = strrchr(file, '.');
 
@@ -107,7 +112,7 @@ const char *get_mime_type(const char *file) {
     else if (strcmp(dot, ".gif") == 0) return "image/gif";
     else if (strcmp(dot, ".ico") == 0) return "image/ico";
     else return "text/html";  // Default MIME type
-}
+}*/
 
 char *get_time_string() {
     struct timeval tv;
@@ -174,8 +179,68 @@ char *create_response(int *response_size, const ResponseHeader *res_header, cons
     free(response_header);
 
     //log
-    printf(" * Response : %s %d %s\n", res_header->http_version, res_header->status_code, res_header->status_message);
+    write_log(" * Response : %s %d %s\n", res_header->http_version, res_header->status_code, res_header->status_message);
     return response;
+}
+
+char *run_php_script(
+    const char *target, 
+    const char *query_string, 
+    const char *post_data) {
+
+    char command[BUFFER_SIZE];
+    FILE *fp;
+
+    // Menjalankan skrip PHP dengan GET dan POST
+    snprintf(command, sizeof(command),
+             "php -r 'parse_str(\"%s\", $_GET); "
+             "parse_str(\"%s\", $_POST); "
+             "include \"%s\";'",
+             query_string, post_data, target);
+
+    // Buffer untuk menyimpan seluruh respons
+    char *response = (char *)malloc(BUFFER_SIZE);
+    if (response == NULL) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+    response[0] = '\0';  // Inisialisasi string kosong
+
+    fp = popen(command, "r");
+    if (fp == NULL) {
+        perror("popen");
+        free(response);
+        exit(EXIT_FAILURE);
+    }
+
+    char result[BUFFER_SIZE];
+    int has_error = 0;  // Flag untuk menandakan ada error
+
+    // Membaca output dari PHP dan menyusunnya ke dalam response buffer
+    while (fgets(result, sizeof(result), fp) != NULL) {
+        // Cek apakah ada pesan kesalahan dari PHP
+        if (strstr(result, "Warning:") || strstr(result, "Notice:") || strstr(result, "Fatal error:")) {
+            fprintf(stderr, "PHP Warning/Notice/Error: %s", result);
+            has_error = 1;  // Tandai bahwa ada error
+        } else {
+            // Tambahkan hasil ke response buffer
+            strncat(response, result, BUFFER_SIZE - strlen(response) - 1);
+        }
+    }
+
+    if (pclose(fp) == -1) {
+        perror("pclose");
+        free(response);
+        exit(EXIT_FAILURE);
+    }
+
+    // Jika ada error, tambahkan pesan error ke response
+    if (has_error) {
+        snprintf(response + strlen(response), BUFFER_SIZE - strlen(response) - 1,
+                 "<p>Terjadi kesalahan dalam menjalankan skrip PHP.</p>\n");
+    }
+
+    return response;  // Mengembalikan respons lengkap
 }
 
 char *handle_method(int *response_size, RequestHeader req_header) {
@@ -201,7 +266,7 @@ char *handle_method(int *response_size, RequestHeader req_header) {
     char fileURL[100];
     snprintf(fileURL, 
         sizeof(fileURL), "%s%s", 
-        FOLDER_DOCUMENT, req_header.uri);
+        config.document_root, req_header.uri);
     FILE *file = fopen(fileURL, "rb");
 
     // Jika file tidak ditemukan, kirimkan status 404 Not Found
@@ -216,75 +281,34 @@ char *handle_method(int *response_size, RequestHeader req_header) {
         char *_404 = "<h1>Not Found</h1>";
         response = create_response(response_size, &res_header, _404 , strlen(_404));
         return response;
-    } 
-
-    // Jika file resource ditemukan
-    if (file) {
-        //Jika ekstensinya PHP, maka jalankan CGI
+    } else {
         const char *extension = strrchr(req_header.uri, '.');
         if (extension && strcmp(extension, ".php") == 0) {
-            // Jalankan CGI
-            char command[BUFFER_SIZE];
-            snprintf(command, sizeof(command),
-                "%s --target=%s"
-                " --method=%s "
-                " --data_query_string=\"%s\""
-                " --data_post=\"%s\"",
-                CGI_PATH, fileURL, req_header.method, 
-                req_header.query_string, req_header.post_data);
-                
-            FILE *fp = popen(command, "r");
-            if (!fp) {
-                perror("popen");
-                exit(EXIT_FAILURE);
-            }
-
-            // Baca output dari program CGI
-            // Baca output dari program CGI
-            char response_body[BUFFER_SIZE];
-            size_t output_len = 0;
-            while (
-                fgets(response_body + output_len, 
-                sizeof(response_body) - output_len, fp) != NULL) {
-                output_len += strlen(response_body + output_len);
-            }
-
-            pclose(fp);
-
             ResponseHeader res_header = {
                 .http_version = req_header.http_version,
                 .status_code = 200,
                 .status_message = "OK",
                 .mime_type = "text/html"
             };
-            
-            response = create_response(response_size, &res_header, response_body, output_len);
+
+            char *_php = "";
+            if(strcmp(req_header.method, "POST") == 0)
+                _php = run_php_script(fileURL, "", req_header.post_data);
+            else if(strcmp(req_header.method, "GET") == 0)
+                _php = run_php_script(fileURL, req_header.query_string, "");
+            response = create_response(response_size, &res_header, _php , strlen(_php));
             return response;
         } else {
-            // Jika file resource ditemukan
-            // Ambil data MIME type
-            const char *mime = get_mime_type(req_header.uri);
-
-            // Generate header 200 OK
             ResponseHeader res_header = {
-                .http_version = req_header.http_version,
-                .status_code = 200,
-                .status_message = "OK",
-                .mime_type = mime
+                .http_version = "HTTP/1.1",
+                .status_code = 400,
+                .status_message = "Bad Request",
+                .mime_type = "text/html"
             };
 
-            // Baca file resource dari server
-            fseek(file, 0, SEEK_END);
-            long fsize = ftell(file);
-            fseek(file, 0, SEEK_SET);
-
-            char *response_body = (char *)malloc(fsize + 1);
-            fread(response_body, 1, fsize, file);
-            fclose(file);
-
-            response = create_response(response_size, &res_header, response_body, fsize);
-            free(response_body);
-            return response;  // Kembalikan response sebagai return value
-        } // end if not php
+            char *_400 = "<h1>400 Bad Request</h1>";
+            response = create_response(response_size, &res_header, _400, strlen(_400));
+            return response;
+        }
     } //end if found
 }

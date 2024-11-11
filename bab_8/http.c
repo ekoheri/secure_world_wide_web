@@ -1,10 +1,14 @@
-#include "http.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
+
+#include "http.h"
+#include "config.h"
+
+extern Config config;
 
 RequestHeader parse_request_line(char *request) {
     RequestHeader req_header = {
@@ -60,7 +64,7 @@ RequestHeader parse_request_line(char *request) {
     // Jika uri kosong, 
     // maka isi uri dgn resource default yaitu index.html
     if (strlen(req_header.uri) == 0) {
-        strcpy(req_header.uri, RESOURCE_DEFAULT);
+        strcpy(req_header.uri, config.default_page);
     }
 
     return req_header;  // Kembalikan struct
@@ -173,7 +177,7 @@ char *handle_method(int *response_size, RequestHeader req_header) {
 
     // Buka file (resource) yang diminta oleh web browser
     char fileURL[100];
-    snprintf(fileURL, sizeof(fileURL), "%s%s", FOLDER_DOCUMENT, req_header.uri);
+    snprintf(fileURL, sizeof(fileURL), "%s%s", config.document_root, req_header.uri);
     FILE *file = fopen(fileURL, "rb");
 
     if (!file) {

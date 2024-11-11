@@ -2,14 +2,11 @@
 #define HTTP_H
 
 #define BUFFER_SIZE 1024
-//Folder dokumen HTML mengarah ke dokumen/
-#define FOLDER_DOCUMENT "dokumen/"
-#define RESOURCE_DEFAULT "index.html"
 
 typedef struct {
     char method[BUFFER_SIZE];
     char uri[BUFFER_SIZE];
-    char http_version[BUFFER_SIZE];
+    char http_version[256];
 } RequestHeader;
 
 typedef struct {

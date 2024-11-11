@@ -5,6 +5,7 @@
         "in.h": "c",
         "inet.h": "c",
         "string.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "config.h": "c"
     }
 }

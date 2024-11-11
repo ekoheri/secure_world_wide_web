@@ -100,16 +100,23 @@ void display_html() {
         spinner);
 
     // Buat container horizontal untuk menempatkan entry dan spinner
-    GtkWidget *hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
-    gtk_box_pack_start(GTK_BOX(hbox), entry, TRUE, TRUE, 0); // Entry mengambil ruang
-    gtk_box_pack_start(GTK_BOX(hbox), spinner, FALSE, FALSE, 0); // Spinner tidak mengambil ruang ekstra
+    GtkWidget *hbox = 
+        gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
+    gtk_box_pack_start(
+        GTK_BOX(hbox), entry, TRUE, TRUE, 0); 
+    gtk_box_pack_start(
+        GTK_BOX(hbox), spinner, 
+        FALSE, FALSE, 0); 
 
     // Buat container vertical untuk mengatur 
     // posisi hbox dan WebView
     GtkWidget *vbox = gtk_box_new(
         GTK_ORIENTATION_VERTICAL, 2);
-    gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0); // Tambahkan hbox ke vbox
-    gtk_box_pack_start(GTK_BOX(vbox), GTK_WIDGET(web_view), TRUE, TRUE, 0);
+    gtk_box_pack_start(
+        GTK_BOX(vbox), hbox, FALSE, FALSE, 0); 
+    gtk_box_pack_start(
+        GTK_BOX(vbox), GTK_WIDGET(web_view), 
+        TRUE, TRUE, 0);
 
     // Tambahkan vbox ke window
     gtk_container_add(GTK_CONTAINER(window), vbox);

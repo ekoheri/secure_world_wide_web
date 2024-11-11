@@ -15,17 +15,6 @@
 #define CHACHA20_KEY_SIZE 32
 #define CHACHA20_NONCE_SIZE 8
 
-typedef struct {
-    char *http_version;     // Untuk menyimpan HTTP version
-    char *status_code;      // Untuk menyimpan status code
-    char *content_type;     // Untuk menyimpan Content-Type
-    char *connection;       // Untuk menyimpan Connection
-    char *cache_control;    // Untuk menyimpan Cache-Control
-    char *encrypted;        // Untuk menyimpan Encrypted
-    char *public_key;       // Untuk menyimpan Public-Key
-    char *response_time;    // Untuk menyimpan Response-Time
-} ResponseHeaders;
-
 void handle_url(char *url, char *hostname, char *path, int *port, char *protocol) {
     strcpy(protocol, "http");
     char *http_prefix = "http://";
@@ -119,13 +108,11 @@ char *handle_respose(char *url, char *form_data) {
 
     handle_url(url, hostname, path, &port, protocol);
     if ((server = gethostbyname(hostname)) == NULL) {
-        fprintf(stderr, "Hostname tidak valid\n");
-        exit(EXIT_FAILURE);
+        body = "<h1>Error : Hostname tidak valid!</h1>";
     }
 
     if ((sock_client = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-        perror("Inisialisasi socket client gagal");
-        exit(EXIT_FAILURE);
+        body = "<h1>Error : Inisialisasi socket client gagal!</h1>";
     }
 
     memset(&serv_addr, 0, sizeof(serv_addr));
@@ -134,8 +121,7 @@ char *handle_respose(char *url, char *form_data) {
     memcpy(&serv_addr.sin_addr.s_addr, server->h_addr, server->h_length);
 
     if (connect(sock_client, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-        perror("Koneksi ke server gagal");
-        exit(EXIT_FAILURE);
+        body = "<h1>Error : Koneksi ke server gagal!</h1>";
     }
 
     if(strcmp(form_data, "")==0 || form_data == NULL) {
@@ -157,9 +143,8 @@ char *handle_respose(char *url, char *form_data) {
         //printf("%s", buffer);
     }
     if (send(sock_client, buffer, strlen(buffer), 0) < 0) {
-        perror("Gagal mengirim permintaan");
         close(sock_client);
-        exit(EXIT_FAILURE);
+        body = "<h1>Error : Gagal mengirim permintaan ke server!</h1>";
     }
 
     memset(buffer, 0, BUFFER_SIZE);
@@ -177,7 +162,7 @@ char *handle_respose(char *url, char *form_data) {
     }
 
     if (response < 0) {
-        perror("Gagal menerima respons");
+        body = "<h1>Error : Gagal menerima respon server!</h1>";
     }
 
     close(sock_client);
@@ -189,6 +174,7 @@ char *handle_respose(char *url, char *form_data) {
         body = separator + 4; 
         //printf("%s\n", header);
         ResponseHeaders headers = parse_response_headers(header);
+        //Block program untuk Decrypt Data
         if (headers.encrypted != NULL && strcmp(headers.encrypted, "yes") == 0) {
 
             // Key & Noce Chacha20

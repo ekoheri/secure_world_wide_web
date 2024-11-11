@@ -6,9 +6,11 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <signal.h>
+#include <fcntl.h>
 
 #include "http.h"
 #include "config.h"
+#include "log.h"
 
 extern Config config;
 
@@ -16,13 +18,15 @@ int sock_server;
 struct sockaddr_in serv_addr;
 int addrlen = 0;
 
+volatile sig_atomic_t keep_running = 1;
+
 void start_server() {
     int opt = 1;
     addrlen = sizeof(serv_addr);
 
     // 1. Inisialisasi socket server
     if ((sock_server = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
-        perror("Inisialisasi socket server gagal");
+        write_log("Inisialisasi socket server gagal %d", sock_server);
         exit(EXIT_FAILURE);
     }
 
@@ -32,7 +36,7 @@ void start_server() {
         &opt, 
         sizeof(opt))) {
 
-        perror("setsockopt gagal");
+        write_log("setsockopt gagal");
         close(sock_server);
         exit(EXIT_FAILURE);
     }
@@ -46,21 +50,19 @@ void start_server() {
         (struct sockaddr *)&serv_addr, 
         sizeof(serv_addr)) < 0) {
 
-        perror("proses bind gagal");
+        write_log("Proses bind gagal");
         close(sock_server);
         exit(EXIT_FAILURE);
     }
 
     // 4. Listen untuk mendengarkan koneksi masuk
     if (listen(sock_server, 3) < 0) {
-        perror("proses listen gagal");
+        write_log("proses listen gagal");
         close(sock_server);
         exit(EXIT_FAILURE);
     }
 
-    printf("Server sedang berjalan.");
-    printf("Tekan Ctrl+C untuk menghentikan.\n");
-    printf("Akses URL  http://%s:%d\n", config.server_name, config.server_port);
+    write_log("Server CGI sedang berjalan");
 }
 
 void handle_client(int sock_client) {
@@ -72,14 +74,14 @@ void handle_client(int sock_client) {
 
     request = (char *)malloc(BUFFER_SIZE * sizeof(char));
     if (!request) {
-        perror("Gagal mengalokasikan memory untuk request");
+        write_log("Gagal mengalokasikan memory untuk request");
         close(sock_client);
         return;
     }
 
     request_size = read(sock_client, request, BUFFER_SIZE - 1);
     if (request_size < 0) {
-        perror("Proses baca request dari client gagal");
+        write_log("Proses baca request dari client gagal");
         close(sock_client);
         free(request);
         return;
@@ -89,16 +91,16 @@ void handle_client(int sock_client) {
     request[request_size] = '\0';
     RequestHeader req_header = parse_request_line(request);
     free(request);
-
+    
     response = handle_method(&response_size, req_header);
 
     if (response != NULL) {
         if (send(sock_client, response, response_size, 0) < 0) {
-            perror("Proses kirim data ke client gagal");
+            write_log("Proses kirim data ke client gagal");
         }
         free(response);
     } else {
-        printf("Response data is NULL\n");
+        write_log("Response data ke browser NULL");
     }
 
     close(sock_client);
@@ -106,7 +108,7 @@ void handle_client(int sock_client) {
 
 void run_server() {
     if (sock_server > 0) {
-        while (1) {
+        while (keep_running) {
             struct sockaddr_in client_addr;
             socklen_t addr_len = sizeof(client_addr);
             int sock_client = accept(
@@ -115,14 +117,14 @@ void run_server() {
             );
             
             if (sock_client < 0) {
-                perror("Proses accept gagal");
+                write_log("Proses accept gagal");
                 continue;
             }
 
             char client_ip[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, &(client_addr.sin_addr), 
                 client_ip, INET_ADDRSTRLEN);
-            printf("Proses accept dari %s berhasil\n", client_ip);
+            write_log("Proses accept dari %s", client_ip);
 
             // Panggil fungsi handle_client
             handle_client(sock_client);
@@ -134,22 +136,63 @@ void stop_server(int signal) {
   if (signal == SIGINT)
   {
     close(sock_server);
-    printf("\nServer telah dihentikan.\n");
-
+    keep_running = 0;
+    write_log("Server CGI telah dihentikan.");
     exit(0);
   }
 }
 
+void set_daemon() {
+    pid_t pid = fork();
+    if (pid < 0) {
+        perror("Fork failed");
+        exit(EXIT_FAILURE);
+    }
+    if (pid > 0) {
+        // Parent process exit
+        exit(EXIT_SUCCESS);
+    }
+
+    if (setsid() < 0) {
+        perror("setsid() failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // Mengubah working directory ke root
+    if (chdir("/") < 0) {
+        perror("chdir() failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // Alihkan STDIN, STDOUT, dan STDERR ke /dev/null
+    int devnull = open("/dev/null", O_RDWR);
+    if (devnull < 0) {
+        perror("open /dev/null failed");
+        exit(EXIT_FAILURE);
+    }
+    dup2(devnull, STDIN_FILENO);
+    dup2(devnull, STDOUT_FILENO);
+    dup2(devnull, STDERR_FILENO);
+    // Tutup devnull nilainya tidak 0, 1, atau 2
+    if (devnull > 2) close(devnull);
+}
+
 int main() {
+    // Jika dihentikan dgn perintah kill
+    // signal(SIGTERM, stop_server);
     // Jika ditekan Ctrl+c maka server dihentikan
     signal(SIGINT, stop_server);
 
-    load_config("server.conf");
+    // Buat CGI menjadi daemon
+    // set_daemon();
+
+    load_config("cgi.conf");
+    
+     // Buat direktori log
+    create_log_directory();
     
     // Server dijalankan
     start_server();
     run_server();
     return 0;
 }
-
-//compile : gcc -o web_server web_server.c http.c -I.
