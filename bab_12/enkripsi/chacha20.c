@@ -1,10 +1,26 @@
-#include "chacha20.h"
-#include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
 
 #define CHACHA20_BLOCK_SIZE 64
 #define ROTATE_LEFT(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
+
+uint32_t counter = 1;  
+
+void bytes_to_hex(const uint8_t* bytes, size_t bytes_len, char* hex) {
+    for (size_t i = 0; i < bytes_len; i++) {
+        sprintf(hex + i * 2, "%02x", bytes[i]);
+    }
+    hex[bytes_len * 2] = '\0';
+}
+
+void hex_to_bytes(const char* hex, uint8_t* bytes, size_t bytes_len) {
+    for (size_t i = 0; i < bytes_len; i++) {
+        sscanf(hex + 2 * i, "%2hhx", &bytes[i]);
+    }
+}
 
 void chacha20_block(uint32_t output[16], const uint32_t input[16]) {
     uint32_t state[16];
@@ -57,135 +73,89 @@ void chacha20_block(uint32_t output[16], const uint32_t input[16]) {
     }
 }
 
-void bytes_to_hex(const uint8_t* bytes, size_t bytes_len, char* hex) {
-    for (size_t i = 0; i < bytes_len; i++) {
-        sprintf(hex + i * 2, "%02x", bytes[i]);
-    }
-    hex[bytes_len * 2] = '\0';
-}
-
-void hex_to_bytes(const char* hex, uint8_t* bytes, size_t bytes_len) {
-    for (size_t i = 0; i < bytes_len; i++) {
-        sscanf(hex + 2 * i, "%2hhx", &bytes[i]);
-    }
-}
-
-char *hex_to_utf8(const char *hex_str) {
-    int len = strlen(hex_str);
-    char *utf8_str = malloc((len / 2) + 1);
-    if (utf8_str == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return NULL;
-    }
-
-    for (int i = 0; i < len; i += 2) {
-        char hex_byte[3] = {hex_str[i], hex_str[i + 1], '\0'};
-        utf8_str[i / 2] = (char)strtol(hex_byte, NULL, 16);
-    }
-    utf8_str[len / 2] = '\0';
-
-    return utf8_str;
-}
-
-char *utf8_to_hex(const char *utf8_str) {
-    int len = strlen(utf8_str);
-    // Alokasi memori untuk buffer heksadesimal
-    char *hex_str = malloc((len * 2) + 1);  // +1 untuk null terminator
-    if (hex_str == NULL) {
-        fprintf(stderr, "Memory allocation failed\n");
-        return NULL;
-    }
-
-    for (int i = 0; i < len; i++) {
-        sprintf(hex_str + (i * 2), "%02x", (unsigned char)utf8_str[i]);
-    }
-    hex_str[len * 2] = '\0';  // Null-terminate string
-
-    return hex_str;
-}
-
-char* chacha20_encrypt(
+char* encrypt(
     const char *plaintext, 
-    const uint8_t *key, 
-    const uint8_t *nonce, 
-    uint32_t counter) {
+    const char *key, long length) {
 
-    uint32_t len = strlen(plaintext);
-    uint8_t *ciphertext_bytes = malloc(len);
+    uint8_t *ciphertext_bytes = malloc(length);
     if (!ciphertext_bytes) {
         return NULL;
     }
 
     uint32_t block[16] = {0};
-    memcpy(block, key, 32);
-    memcpy(block + 8, nonce, 8);
+
+    // Memisahkan `key` dan `nonce` dari parameter `key`
+    memcpy(block, key, 32);      // 32 byte pertama sebagai kunci
+    memcpy(block + 8, key + 32, 8);  // 8 byte terakhir sebagai nonce
     block[12] = counter;
 
     uint32_t output_block[16];
     
-    for (uint32_t i = 0; i < len; i++) {
+    for (uint32_t i = 0; i < length; i++) {
         if (i % CHACHA20_BLOCK_SIZE == 0) {
-            chacha20_block(output_block, block);
-            block[12]++;
+            chacha20_block(output_block, block);  // Membuat blok enkripsi baru
+            block[12]++;                          // Meningkatkan counter setiap blok
         }
         ciphertext_bytes[i] = plaintext[i] ^ ((uint8_t*)output_block)[i % CHACHA20_BLOCK_SIZE];
     }
 
-    char *ciphertext_hex = malloc(len * 2 + 1);
+    char *ciphertext_hex = malloc(length * 2 + 1);
     if (!ciphertext_hex) {
         free(ciphertext_bytes);
         return NULL;
     }
-    bytes_to_hex(ciphertext_bytes, len, ciphertext_hex);
+    bytes_to_hex(ciphertext_bytes, length, ciphertext_hex);
 
     free(ciphertext_bytes);
     return ciphertext_hex;
 }
 
-char* chacha20_decrypt(
-    const char *ciphertext, 
-    const uint8_t *key, 
-    const uint8_t *nonce, 
-    uint32_t counter) {
-
-    uint32_t len = strlen(ciphertext) / 2;
-    uint8_t *ciphertext_bytes = malloc(len);
+char* decrypt(const char *ciphertext, const char *key, long length) {
+    uint8_t *ciphertext_bytes = malloc(length);
     if (!ciphertext_bytes) {
         return NULL;
     }
-    hex_to_bytes(ciphertext, ciphertext_bytes, len);
 
-    uint8_t *plaintext_bytes = malloc(len);
+    // Mengonversi ciphertext dari hex ke bytes
+    hex_to_bytes(ciphertext, ciphertext_bytes, length);
+
+    uint8_t *plaintext_bytes = malloc(length);
     if (!plaintext_bytes) {
         free(ciphertext_bytes);
         return NULL;
     }
 
     uint32_t block[16] = {0};
-    memcpy(block, key, 32);
-    memcpy(block + 8, nonce, 8);
-    block[12] = counter;
+    
+    // Mengambil kunci (32 byte pertama dari key) dan nonce (8 byte terakhir dari key)
+    memcpy(block, key, 32);          // 32 byte pertama sebagai kunci
+    memcpy(block + 8, key + 32, 8);  // 8 byte terakhir sebagai nonce
+    block[12] = counter;             // Menggunakan counter yang diberikan
 
     uint32_t output_block[16];
-
-    for (uint32_t i = 0; i < len; i++) {
+    
+    // Proses dekripsi dengan XOR
+    for (uint32_t i = 0; i < length; i++) {
         if (i % CHACHA20_BLOCK_SIZE == 0) {
-            chacha20_block(output_block, block);
-            block[12]++;
+            chacha20_block(output_block, block);  // Membuat blok baru dari chacha20
+            block[12]++;                          // Meningkatkan counter setiap blok
         }
         plaintext_bytes[i] = ciphertext_bytes[i] ^ ((uint8_t*)output_block)[i % CHACHA20_BLOCK_SIZE];
     }
 
-    char *plaintext = malloc(len + 1);
+    char *plaintext = malloc(length + 1);  // Mengalokasikan memori untuk hasil dekripsi
     if (!plaintext) {
         free(ciphertext_bytes);
         free(plaintext_bytes);
         return NULL;
     }
-    memcpy(plaintext, plaintext_bytes, len);
-    plaintext[len] = '\0';
+
+    memcpy(plaintext, plaintext_bytes, length);  // Menyalin hasil dekripsi ke dalam plaintext
+    plaintext[length] = '\0';  // Menambahkan null terminator
 
     free(ciphertext_bytes);
     free(plaintext_bytes);
     return plaintext;
 }
+
+// compile : gcc -shared -o chacha20 -fPIC enkripsi/chacha20.c

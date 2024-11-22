@@ -1,0 +1,17 @@
+[2024-11-16 02:52:49] Server CGI sedang berjalan
+[2024-11-16 03:04:34]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-16 03:04:35]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:05:10]  * Request : GET /test_get.php?nama=eko&alamat=surabaya HTTP/1.1
+[2024-11-16 03:05:10]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:12:20]  * Request : POST /test_post.php HTTP/1.1
+[2024-11-16 03:12:20]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:15:04]  * Request : POST /test_post.php HTTP/1.1
+[2024-11-16 03:15:04]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:16:17]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-16 03:16:17]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:16:33]  * Request : POST /test_post.php HTTP/1.1
+[2024-11-16 03:16:33]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:42:09]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-16 03:42:09]  * Response : HTTP/1.1 200 OK
+[2024-11-16 03:42:26]  * Request : POST /test_post.php HTTP/1.1
+[2024-11-16 03:42:26]  * Response : HTTP/1.1 200 OK

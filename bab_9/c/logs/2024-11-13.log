@@ -1,0 +1,85 @@
+[2024-11-13 09:34:19] Server CGI sedang berjalan
+[2024-11-13 09:34:24] Proses accept dari 127.0.0.1
+[2024-11-13 09:34:24]  * Request : GET /test_get.php?nama=eko HTTP/1.1
+
+[2024-11-13 09:34:24]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 09:35:33] Server CGI telah dihentikan.
+[2024-11-13 09:35:48] Server CGI sedang berjalan
+[2024-11-13 09:36:01] Proses accept dari 127.0.0.1
+[2024-11-13 09:36:01]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 09:36:01]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 09:36:17] Server CGI telah dihentikan.
+[2024-11-13 09:41:33] Server CGI sedang berjalan
+[2024-11-13 09:41:38] Proses accept dari 127.0.0.1
+[2024-11-13 09:41:38]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 09:41:38]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:04:20] Server CGI sedang berjalan
+[2024-11-13 10:04:25] Proses accept dari 127.0.0.1
+[2024-11-13 10:04:25]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 10:04:25]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:04:28] Proses accept dari 127.0.0.1
+[2024-11-13 10:04:28]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 10:04:28]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:08:14] Server CGI sedang berjalan
+[2024-11-13 10:08:19] Proses accept dari 127.0.0.1
+[2024-11-13 10:08:19]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 10:08:19]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:08:22] Proses accept dari 127.0.0.1
+[2024-11-13 10:08:22]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 10:08:22]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:11:00] Server CGI sedang berjalan
+[2024-11-13 10:11:05]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 10:11:05]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:12:35] Server CGI sedang berjalan
+[2024-11-13 10:12:39]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+
+[2024-11-13 10:12:40]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:14:59]  * Request : POST / HTTP/1.1
+
+[2024-11-13 10:14:59]  * Response : HTTP/1.1 400 Bad Request
+
+[2024-11-13 10:16:01]  * Request : POST / HTTP/1.1
+
+[2024-11-13 10:16:01]  * Response : HTTP/1.1 400 Bad Request
+
+[2024-11-13 10:16:39]  * Request : POST / HTTP/1.1
+
+[2024-11-13 10:16:39]  * Response : HTTP/1.1 400 Bad Request
+
+[2024-11-13 10:17:15]  * Request : POST /test_post.php HTTP/1.1
+
+[2024-11-13 10:17:16]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:22:32] Server CGI sedang berjalan
+[2024-11-13 10:22:46]  * Request : POST /test_post.php HTTP/1.1
+
+[2024-11-13 10:22:46]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:23:04]  * Request : POST /test_post.php HTTP/1.1
+
+[2024-11-13 10:23:04]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:23:55] Server CGI sedang berjalan
+[2024-11-13 10:24:06]  * Request : POST /test_post.php HTTP/1.1
+
+[2024-11-13 10:24:06]  * Response : HTTP/1.1 200 OK
+
+[2024-11-13 10:30:41] Server CGI sedang berjalan
+[2024-11-13 10:30:47]  * Request : POST /test_post.php HTTP/1.1
+[2024-11-13 10:30:47]  * Response : HTTP/1.1 200 OK

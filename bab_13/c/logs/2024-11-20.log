@@ -1,0 +1,49 @@
+[2024-11-20 22:56:57] Web Server sedang berjalan
+[2024-11-20 22:57:47] Proses accept dari 127.0.0.1
+[2024-11-20 22:57:47] Proses accept dari 127.0.0.1
+[2024-11-20 22:57:47]  * Request : GET / HTTP/1.1
+[2024-11-20 22:57:47]  * Response : HTTP/1.1 200 OK
+[2024-11-20 22:57:49]  * Request : GET /favicon.ico HTTP/1.1
+[2024-11-20 22:59:47] Web Server sedang berjalan
+[2024-11-20 22:59:51] Proses accept dari 127.0.0.1
+[2024-11-20 22:59:51]  * Request : GET /style.css HTTP/1.1
+[2024-11-20 22:59:51]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:01:33] Web Server sedang berjalan
+[2024-11-20 23:01:38] Proses accept dari 127.0.0.1
+[2024-11-20 23:01:38]  * Request : GET /style.css HTTP/1.1
+[2024-11-20 23:01:38]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:01:38] Proses accept dari 127.0.0.1
+[2024-11-20 23:01:38]  * Request : GET /favicon.ico HTTP/1.1
+[2024-11-20 23:01:38]  * Response : HTTP/1.1 404 Not Found
+[2024-11-20 23:01:43] Proses accept dari 127.0.0.1
+[2024-11-20 23:01:43]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-20 23:01:43]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:01:48] Proses accept dari 127.0.0.1
+[2024-11-20 23:01:48]  * Request : GET /index.html HTTP/1.1
+[2024-11-20 23:01:48]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:17:58] Web Server telah dihentikan.
+[2024-11-20 23:19:06] Web Server sedang berjalan
+[2024-11-20 23:19:11] Proses accept dari 127.0.0.1
+[2024-11-20 23:19:11] Proses accept dari 127.0.0.1
+[2024-11-20 23:19:11]  * Request : GET /index.html HTTP/1.1
+[2024-11-20 23:19:11]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:19:17]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-20 23:19:17]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:19:21] Proses accept dari 127.0.0.1
+[2024-11-20 23:19:21]  * Request : GET /style.css HTTP/1.1
+[2024-11-20 23:19:21]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:25:02] Web Server sedang berjalan
+[2024-11-20 23:25:13] Proses accept dari 127.0.0.1
+[2024-11-20 23:25:13] Proses accept dari 127.0.0.1
+[2024-11-20 23:25:13]  * Request : GET /style.css HTTP/1.1
+[2024-11-20 23:25:13]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:35:14]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-20 23:45:38] Web Server sedang berjalan
+[2024-11-20 23:45:43] Proses accept dari 127.0.0.1
+[2024-11-20 23:45:43]  * Request : GET /style.css HTTP/1.1
+[2024-11-20 23:45:43]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:45:43] Proses accept dari 127.0.0.1
+[2024-11-20 23:46:00] Proses accept dari 127.0.0.1
+[2024-11-20 23:46:00]  * Request : GET /style.css HTTP/1.1
+[2024-11-20 23:46:00]  * Response : HTTP/1.1 200 OK
+[2024-11-20 23:57:30]  * Response : HTTP/1.1 400 Bad Request

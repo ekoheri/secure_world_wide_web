@@ -1,0 +1,298 @@
+[2024-11-23 00:03:46] Proses accept dari 127.0.0.1
+[2024-11-23 00:03:46]  * Request : GET / HTTP/1.1
+[2024-11-23 00:03:46]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:07:10] Proses accept dari 127.0.0.1
+[2024-11-23 00:07:10]  * Request : GET / HTTP/1.1
+[2024-11-23 00:07:10]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:36:26] Proses accept dari 127.0.0.1
+[2024-11-23 00:36:26]  * Request : GET / HTTP/1.1
+[2024-11-23 00:36:26]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:42:21] Proses accept dari 127.0.0.1
+[2024-11-23 00:42:21]  * Request : GET / HTTP/1.1
+[2024-11-23 00:42:21]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:45:01] Proses accept dari 127.0.0.1
+[2024-11-23 00:45:01]  * Request : GET / HTTP/1.1
+[2024-11-23 00:45:01]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:54:57] Web Server telah dihentikan.
+[2024-11-23 00:55:05] Web Server sedang berjalan
+[2024-11-23 00:55:23] Proses accept dari 127.0.0.1
+[2024-11-23 00:55:23]  * Request : GET / HTTP/1.1
+[2024-11-23 00:55:23]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:57:42] Proses accept dari 127.0.0.1
+[2024-11-23 00:57:42]  * Request : GET / HTTP/1.1
+[2024-11-23 00:57:42]  * Response : HTTP/1.1 200 OK
+[2024-11-23 00:58:07] Web Server telah dihentikan.
+[2024-11-23 00:59:19] Web Server sedang berjalan
+[2024-11-23 00:59:38] Proses accept dari 127.0.0.1
+[2024-11-23 00:59:38]  * Request : GET / HTTP/1.1
+[2024-11-23 00:59:38]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:03:29] Web Server telah dihentikan.
+[2024-11-23 01:03:36] Web Server sedang berjalan
+[2024-11-23 01:03:53] Proses accept dari 127.0.0.1
+[2024-11-23 01:03:53]  * Request : GET / HTTP/1.1
+[2024-11-23 01:03:53]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:07:56] Web Server telah dihentikan.
+[2024-11-23 01:08:29] Web Server sedang berjalan
+[2024-11-23 01:08:42] Proses accept dari 127.0.0.1
+[2024-11-23 01:08:42]  * Request : GET / HTTP/1.1
+[2024-11-23 01:08:42]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:08:42] Proses accept dari 127.0.0.1
+[2024-11-23 01:08:42]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 01:08:42]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:08:42] Proses accept dari 127.0.0.1
+[2024-11-23 01:08:42]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 01:08:42]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:08:42] Proses accept dari 127.0.0.1
+[2024-11-23 01:08:42] Proses accept dari 127.0.0.1
+[2024-11-23 01:08:42]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 01:08:42]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:08:42]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 01:08:42]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:13:51] Proses accept dari 127.0.0.1
+[2024-11-23 01:13:51]  * Request : GET / HTTP/1.1
+[2024-11-23 01:13:51]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:14:24] Proses accept dari 127.0.0.1
+[2024-11-23 01:14:24]  * Request : GET / HTTP/1.1
+[2024-11-23 01:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:27:20] Proses accept dari 127.0.0.1
+[2024-11-23 01:27:20]  * Request : GET / HTTP/1.1
+[2024-11-23 01:27:20]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:29:33] Proses accept dari 127.0.0.1
+[2024-11-23 01:29:33]  * Request : GET / HTTP/1.1
+[2024-11-23 01:29:33]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:30:47] Proses accept dari 127.0.0.1
+[2024-11-23 01:30:47]  * Request : GET / HTTP/1.1
+[2024-11-23 01:30:47]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:40:34] Proses accept dari 127.0.0.1
+[2024-11-23 01:40:34]  * Request : GET / HTTP/1.1
+[2024-11-23 01:40:34]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:42:53] Proses accept dari 127.0.0.1
+[2024-11-23 01:42:53] Proses accept dari 127.0.0.1
+[2024-11-23 01:42:53]  * Request : GET / HTTP/1.1
+[2024-11-23 01:42:53]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:43:27]  * Request : GET / HTTP/1.1
+[2024-11-23 01:43:27]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:43:27] Proses accept dari 127.0.0.1
+[2024-11-23 01:43:30] Proses accept dari 127.0.0.1
+[2024-11-23 01:43:30]  * Request : GET / HTTP/1.1
+[2024-11-23 01:43:30]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:44:57] Web Server telah dihentikan.
+[2024-11-23 01:45:41] Web Server sedang berjalan
+[2024-11-23 01:46:23] Proses accept dari 127.0.0.1
+[2024-11-23 01:46:23]  * Request : GET / HTTP/1.1
+[2024-11-23 01:46:23]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:48:59] Proses accept dari 127.0.0.1
+[2024-11-23 01:48:59]  * Request : GET / HTTP/1.1
+[2024-11-23 01:48:59]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:51:01] Proses accept dari 127.0.0.1
+[2024-11-23 01:51:01] Proses accept dari 127.0.0.1
+[2024-11-23 01:51:01]  * Request : GET / HTTP/1.1
+[2024-11-23 01:51:01]  * Response : HTTP/1.1 200 OK
+[2024-11-23 01:52:04]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-23 02:12:52] Web Server telah dihentikan.
+[2024-11-23 02:12:56] Web Server sedang berjalan
+[2024-11-23 02:13:28] Proses accept dari 127.0.0.1
+[2024-11-23 02:13:28]  * Request : GET / HTTP/1.1
+[2024-11-23 02:14:18] Web Server sedang berjalan
+[2024-11-23 02:14:21] Web Server telah dihentikan.
+[2024-11-23 02:14:47] Web Server sedang berjalan
+[2024-11-23 02:14:57] Proses accept dari 127.0.0.1
+[2024-11-23 02:14:57]  * Request : GET / HTTP/1.1
+[2024-11-23 02:18:18] Web Server sedang berjalan
+[2024-11-23 02:18:31] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:31]  * Request : GET / HTTP/1.1
+[2024-11-23 02:18:31]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:31] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:31]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 02:18:31]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:31] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:31]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 02:18:31]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:32] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:32] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:32]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 02:18:32]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:32]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 02:18:32]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:43] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:43]  * Request : GET /about.html HTTP/1.1
+[2024-11-23 02:18:44]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:45] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:45]  * Request : GET /contact.html HTTP/1.1
+[2024-11-23 02:18:45]  * Response : HTTP/1.1 404 Not Found
+[2024-11-23 02:18:50] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:50]  * Request : GET / HTTP/1.1
+[2024-11-23 02:18:50]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:50] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:50]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 02:18:50]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:50] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:50]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 02:18:50]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:50] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:50]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 02:18:50]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:18:50] Proses accept dari 127.0.0.1
+[2024-11-23 02:18:50]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 02:18:50]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:12] Web Server sedang berjalan
+[2024-11-23 02:19:16] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:16]  * Request : GET / HTTP/1.1
+[2024-11-23 02:19:16]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:16] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:16]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 02:19:16]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:16] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:16]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 02:19:16]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:16] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:16]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 02:19:16]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:16] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:16]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 02:19:16]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:18] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:18]  * Request : GET /about.html HTTP/1.1
+[2024-11-23 02:19:18]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:19:19] Proses accept dari 127.0.0.1
+[2024-11-23 02:19:19]  * Request : GET /contact.html HTTP/1.1
+[2024-11-23 02:19:19]  * Response : HTTP/1.1 404 Not Found
+[2024-11-23 02:19:26] Web Server telah dihentikan.
+[2024-11-23 02:19:55] Web Server sedang berjalan
+[2024-11-23 02:20:05] Proses accept dari 127.0.0.1
+[2024-11-23 02:20:05]  * Request : GET / HTTP/1.1
+[2024-11-23 02:20:25] Web Server sedang berjalan
+[2024-11-23 02:20:36] Proses accept dari 127.0.0.1
+[2024-11-23 02:20:36]  * Request : GET / HTTP/1.1
+[2024-11-23 02:32:58] Web Server sedang berjalan
+[2024-11-23 02:34:12] Proses accept dari 127.0.0.1
+[2024-11-23 02:34:12]  * Request : GET / HTTP/1.1
+[2024-11-23 02:34:12]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:34:45] Proses accept dari 127.0.0.1
+[2024-11-23 02:34:45] Proses accept dari 127.0.0.1
+[2024-11-23 02:34:45]  * Request : GET / HTTP/1.1
+[2024-11-23 02:34:45]  * Response : HTTP/1.1 200 OK
+[2024-11-23 02:37:11] Web Server telah dihentikan.
+[2024-11-23 02:37:33] Web Server sedang berjalan
+[2024-11-23 02:37:53] Proses accept dari 127.0.0.1
+[2024-11-23 02:37:53]  * Request : GET / HTTP/1.1
+[2024-11-23 02:37:53]  * Response : HTTP/1.1 200 OK
+[2024-11-23 03:12:42] Web Server telah dihentikan.
+[2024-11-23 03:14:22] Web Server sedang berjalan
+[2024-11-23 03:14:43] Proses accept dari 127.0.0.1
+[2024-11-23 03:14:43]  * Request : GET / HTTP/1.1
+[2024-11-23 03:14:43]  * Response : HTTP/1.1 200 OK
+[2024-11-23 04:54:48] Web Server telah dihentikan.
+[2024-11-23 04:57:06] Web Server sedang berjalan
+[2024-11-23 04:58:28] Proses accept dari 127.0.0.1
+[2024-11-23 04:58:28]  * Request : GET / HTTP/1.1
+[2024-11-23 04:58:28]  * Response : HTTP/1.1 200 OK
+[2024-11-23 04:59:03] Proses accept dari 127.0.0.1
+[2024-11-23 04:59:03]  * Request : GET / HTTP/1.1
+[2024-11-23 04:59:03]  * Response : HTTP/1.1 200 OK
+[2024-11-23 04:59:03] Proses accept dari 127.0.0.1
+[2024-11-23 04:59:03]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 04:59:03]  * Response : HTTP/1.1 200 OK
+[2024-11-23 04:59:03] Proses accept dari 127.0.0.1
+[2024-11-23 04:59:03]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 04:59:03]  * Response : HTTP/1.1 200 OK
+[2024-11-23 04:59:03] Proses accept dari 127.0.0.1
+[2024-11-23 04:59:03] Proses accept dari 127.0.0.1
+[2024-11-23 04:59:03]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 04:59:03]  * Response : HTTP/1.1 200 OK
+[2024-11-23 04:59:03]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 04:59:03]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:29] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:29]  * Request : GET / HTTP/1.1
+[2024-11-23 05:03:29]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:29] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:29]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:03:29]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:29] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:29]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:03:29]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:30] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:30] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:30]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:03:30]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:30]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:03:30]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:33] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:33]  * Request : GET /about.html HTTP/1.1
+[2024-11-23 05:03:33]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:38] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:38]  * Request : GET /index.html HTTP/1.1
+[2024-11-23 05:03:38]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:39] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:39]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:03:39]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:39] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:39]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:03:39]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:39] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:39]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:03:39]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:03:39] Proses accept dari 127.0.0.1
+[2024-11-23 05:03:39]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:03:39]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:04:06] Web Server telah dihentikan.
+[2024-11-23 05:04:56] Web Server sedang berjalan
+[2024-11-23 05:05:02] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:02] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:02]  * Request : GET / HTTP/1.1
+[2024-11-23 05:05:02]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:26] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:26]  * Request : GET / HTTP/1.1
+[2024-11-23 05:05:26]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:26] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:26]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:05:26]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:26] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:26]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:05:26]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:27] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:27] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:27]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:05:27]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:27]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:05:27]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:36] Proses accept dari 127.0.0.1
+[2024-11-23 05:05:36]  * Request : GET /about.html HTTP/1.1
+[2024-11-23 05:05:36]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:05:49] Web Server telah dihentikan.
+[2024-11-23 05:12:07] Web Server sedang berjalan
+[2024-11-23 05:12:20] Proses accept dari 127.0.0.1
+[2024-11-23 05:12:20]  * Request : GET / HTTP/1.1
+[2024-11-23 05:14:11] Web Server sedang berjalan
+[2024-11-23 05:14:23] Proses accept dari 127.0.0.1
+[2024-11-23 05:14:23]  * Request : GET / HTTP/1.1
+[2024-11-23 05:14:23]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:14:23] Proses accept dari 127.0.0.1
+[2024-11-23 05:14:23]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:14:23]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:14:23] Proses accept dari 127.0.0.1
+[2024-11-23 05:14:23]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:14:23]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:14:24] Proses accept dari 127.0.0.1
+[2024-11-23 05:14:24] Proses accept dari 127.0.0.1
+[2024-11-23 05:14:24]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:14:24]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:14:55] Web Server telah dihentikan.
+[2024-11-23 05:21:56] Web Server sedang berjalan
+[2024-11-23 05:22:13] Proses accept dari 127.0.0.1
+[2024-11-23 05:22:13]  * Request : GET / HTTP/1.1
+[2024-11-23 05:22:13]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:22:13] Proses accept dari 127.0.0.1
+[2024-11-23 05:22:13]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:22:13]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:22:13] Proses accept dari 127.0.0.1
+[2024-11-23 05:22:13]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:22:13]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:22:14] Proses accept dari 127.0.0.1
+[2024-11-23 05:22:14] Proses accept dari 127.0.0.1
+[2024-11-23 05:22:14]  * Request : GET /style.css HTTP/1.1
+[2024-11-23 05:22:14]  * Response : HTTP/1.1 200 OK
+[2024-11-23 05:22:14]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-23 05:22:14]  * Response : HTTP/1.1 200 OK

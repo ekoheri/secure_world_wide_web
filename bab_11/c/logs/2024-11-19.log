@@ -1,0 +1,117 @@
+[2024-11-19 10:11:16] Web Server sedang berjalan
+[2024-11-19 10:12:29] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:12:29]  * Request : GET / HTTP/1.1
+[2024-11-19 10:12:29]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:12:29] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:12:30]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 10:12:30]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:12:30] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:12:30]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 10:12:31]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:12:32] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:12:32]  * Request : GET /favicon.ico HTTP/1.1
+[2024-11-19 10:12:32]  * Response : HTTP/1.1 404 Not Found
+[2024-11-19 10:12:36] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:12:36]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:12:36] Koneksi ke CGI Server gagal
+[2024-11-19 10:15:01] Web Server sedang berjalan
+[2024-11-19 10:15:04] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:15:04]  * Request : GET / HTTP/1.1
+[2024-11-19 10:15:04]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:15:04] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:15:04]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 10:15:04]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:15:04] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:15:04]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 10:15:04]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:15:07] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:15:07]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:15:07] Koneksi ke CGI Server gagal
+[2024-11-19 10:16:31] Web Server sedang berjalan
+[2024-11-19 10:16:35] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:16:35]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:16:35] Koneksi ke CGI Server gagal
+[2024-11-19 10:22:34] Web Server sedang berjalan
+[2024-11-19 10:22:40] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:40]  * Request : GET / HTTP/1.1
+[2024-11-19 10:22:40]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:22:40] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:40]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 10:22:40]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:22:40] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:40]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 10:22:40]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:22:42] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:42]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:22:42] Error: Koneksi ke CGI Server gagal
+[2024-11-19 10:22:42]  * Response : HTTP/1.1 500 Internal Server Error
+[2024-11-19 10:22:43] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:43]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:22:43] Error: Koneksi ke CGI Server gagal
+[2024-11-19 10:22:43]  * Response : HTTP/1.1 500 Internal Server Error
+[2024-11-19 10:22:43] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:53]  * Request : GET / HTTP/1.1
+[2024-11-19 10:22:53]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:22:53] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:53]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 10:22:53]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:22:53] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:22:53]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 10:22:53]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:25:43] Web Server telah dihentikan.
+[2024-11-19 10:25:57] Web Server sedang berjalan
+[2024-11-19 10:26:01] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:26:01]  * Request : GET / HTTP/1.1
+[2024-11-19 10:26:01]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:26:01] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:26:01]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 10:26:01]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:26:01] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:26:01]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 10:26:01]  * Response : HTTP/1.1 200 OK
+[2024-11-19 10:26:03] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:26:03]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:26:03] Error: Koneksi ke CGI Server gagal
+[2024-11-19 10:26:03]  * Response : HTTP/1.1 500 Internal Server Error
+[2024-11-19 10:26:05] Ada koneksi dari 127.0.0.1
+[2024-11-19 10:26:05]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 10:26:05] Error: Koneksi ke CGI Server gagal
+[2024-11-19 10:26:05]  * Response : HTTP/1.1 500 Internal Server Error
+[2024-11-19 10:26:05] Ada koneksi dari 127.0.0.1
+[2024-11-19 12:36:56] Web Server sedang berjalan
+[2024-11-19 12:37:05] Proses accept dari 127.0.0.1
+[2024-11-19 12:37:05] Proses accept dari 127.0.0.1
+[2024-11-19 12:37:05]  * Request : GET / HTTP/1.1
+[2024-11-19 12:37:05]  * Response : HTTP/1.1 200 OK
+[2024-11-19 12:37:05]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 12:37:05]  * Response : HTTP/1.1 200 OK
+[2024-11-19 12:37:05] Proses accept dari 127.0.0.1
+[2024-11-19 12:37:05]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 12:37:05]  * Response : HTTP/1.1 200 OK
+[2024-11-19 12:37:07] Proses accept dari 127.0.0.1
+[2024-11-19 12:37:07] Proses accept dari 127.0.0.1
+[2024-11-19 12:37:07]  * Request : GET /about.html HTTP/1.1
+[2024-11-19 12:37:07]  * Response : HTTP/1.1 200 OK
+[2024-11-19 12:37:10] Proses accept dari 127.0.0.1
+[2024-11-19 12:37:10]  * Request : GET /contact.html HTTP/1.1
+[2024-11-19 12:37:10]  * Response : HTTP/1.1 404 Not Found
+[2024-11-19 12:42:34]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-19 14:11:17] Web Server sedang berjalan
+[2024-11-19 14:11:22] Proses accept dari 127.0.0.1
+[2024-11-19 14:11:22]  * Request : GET / HTTP/1.1
+[2024-11-19 14:11:22]  * Response : HTTP/1.1 200 OK
+[2024-11-19 14:11:22] Proses accept dari 127.0.0.1
+[2024-11-19 14:11:22] Proses accept dari 127.0.0.1
+[2024-11-19 14:11:22]  * Request : GET /style.css HTTP/1.1
+[2024-11-19 14:11:22]  * Response : HTTP/1.1 200 OK
+[2024-11-19 14:11:22]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-19 14:11:22]  * Response : HTTP/1.1 200 OK
+[2024-11-19 14:11:25] Proses accept dari 127.0.0.1
+[2024-11-19 14:11:25]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 14:11:25] Error: Koneksi ke CGI Server gagal
+[2024-11-19 14:11:25]  * Response : HTTP/1.1 500 Internal Server Error
+[2024-11-19 14:11:26] Proses accept dari 127.0.0.1
+[2024-11-19 14:11:26]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
+[2024-11-19 14:11:26] Error: Koneksi ke CGI Server gagal
+[2024-11-19 14:11:26]  * Response : HTTP/1.1 500 Internal Server Error
+[2024-11-19 14:11:26] Proses accept dari 127.0.0.1

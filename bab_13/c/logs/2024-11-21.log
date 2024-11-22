@@ -1,0 +1,393 @@
+[2024-11-21 00:05:41] Proses accept dari 127.0.0.1
+[2024-11-21 00:05:41]  * Request : GET / HTTP/1.1
+[2024-11-21 00:05:41]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:05:41] Proses accept dari 127.0.0.1
+[2024-11-21 00:05:41]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 00:05:41]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:05:41] Proses accept dari 127.0.0.1
+[2024-11-21 00:05:41]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 00:05:41]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:05:43] Proses accept dari 127.0.0.1
+[2024-11-21 00:05:43] Proses accept dari 127.0.0.1
+[2024-11-21 00:05:43]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 00:05:43]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:05:43]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 00:05:43]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:47:50] Proses accept dari 127.0.0.1
+[2024-11-21 00:47:50]  * Request : GET / HTTP/1.1
+[2024-11-21 00:47:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:47:50] Proses accept dari 127.0.0.1
+[2024-11-21 00:47:50]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 00:47:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:47:50] Proses accept dari 127.0.0.1
+[2024-11-21 00:47:50]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 00:47:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:47:50] Proses accept dari 127.0.0.1
+[2024-11-21 00:47:50] Proses accept dari 127.0.0.1
+[2024-11-21 00:47:50]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 00:47:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 00:47:50]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 00:47:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:21] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:21]  * Request : GET / HTTP/1.1
+[2024-11-21 01:00:21]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:21] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:21]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:00:21]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:21] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:21]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:00:21]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:21] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:21] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:21]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:00:21]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:21]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:00:21]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:29] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:29]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:00:29]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:34] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:34]  * Request : GET /contact.html HTTP/1.1
+[2024-11-21 01:00:34]  * Response : HTTP/1.1 404 Not Found
+[2024-11-21 01:00:42] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:42]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:00:42]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:47] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:47]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 01:00:47]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:47] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:47]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:00:47]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:47] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:47]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:00:47]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:47] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:47]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:00:47]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:00:47] Proses accept dari 127.0.0.1
+[2024-11-21 01:00:47]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:00:47]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:04:40] Proses accept dari 127.0.0.1
+[2024-11-21 01:04:40]  * Request : GET / HTTP/1.1
+[2024-11-21 01:04:40]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:04:40] Proses accept dari 127.0.0.1
+[2024-11-21 01:04:40]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:04:40]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:04:40] Proses accept dari 127.0.0.1
+[2024-11-21 01:04:40]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:04:40]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:04:41] Proses accept dari 127.0.0.1
+[2024-11-21 01:04:41] Proses accept dari 127.0.0.1
+[2024-11-21 01:04:41]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:04:41]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:04:41]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:04:41]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:17] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:17]  * Request : GET / HTTP/1.1
+[2024-11-21 01:25:17]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:17] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:17]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:25:17]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:17] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:17]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:25:17]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:17] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:17] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:17]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:25:17]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:17]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:25:17]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:23] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:23]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:25:23]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:48] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:48]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 01:25:48]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:48] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:48]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:25:48]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:48] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:48]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:25:48]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:48] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:48] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:48]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:25:48]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:48]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:25:48]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:25:52] Proses accept dari 127.0.0.1
+[2024-11-21 01:25:52]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:25:52]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:27:43] Proses accept dari 127.0.0.1
+[2024-11-21 01:27:43]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:27:43]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:08] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:08]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:28:08]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:27] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:27]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 01:28:27]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:27] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:27]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:28:27]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:27] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:27]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:28:27]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:27] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:27] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:27]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:28:27]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:27]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:28:27]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:28:34] Proses accept dari 127.0.0.1
+[2024-11-21 01:28:34]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:28:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:29:20] Proses accept dari 127.0.0.1
+[2024-11-21 01:29:20]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:29:20]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:33:32] Proses accept dari 127.0.0.1
+[2024-11-21 01:33:32]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:33:32]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:35:34] Proses accept dari 127.0.0.1
+[2024-11-21 01:35:34]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 01:35:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:35:34] Proses accept dari 127.0.0.1
+[2024-11-21 01:35:34]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:35:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:35:34] Proses accept dari 127.0.0.1
+[2024-11-21 01:35:34]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:35:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:35:35] Proses accept dari 127.0.0.1
+[2024-11-21 01:35:35] Proses accept dari 127.0.0.1
+[2024-11-21 01:35:35]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:35:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:35:35]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:35:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:35:42] Proses accept dari 127.0.0.1
+[2024-11-21 01:35:42]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:35:42]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:36:19] Proses accept dari 127.0.0.1
+[2024-11-21 01:36:19] Proses accept dari 127.0.0.1
+[2024-11-21 01:36:19]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:36:19]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:36:28] Proses accept dari 127.0.0.1
+[2024-11-21 01:36:28]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:36:28]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:40:31] Proses accept dari 127.0.0.1
+[2024-11-21 01:40:31]  * Request : GET / HTTP/1.1
+[2024-11-21 01:40:31]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:40:31] Proses accept dari 127.0.0.1
+[2024-11-21 01:40:31]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:40:31]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:40:31] Proses accept dari 127.0.0.1
+[2024-11-21 01:40:31]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:40:31]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:40:32] Proses accept dari 127.0.0.1
+[2024-11-21 01:40:32] Proses accept dari 127.0.0.1
+[2024-11-21 01:40:32]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:40:32]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:40:32]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:40:32]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:40:34] Proses accept dari 127.0.0.1
+[2024-11-21 01:40:34]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:40:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:44:01] Proses accept dari 127.0.0.1
+[2024-11-21 01:44:01]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 01:44:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:44:01] Proses accept dari 127.0.0.1
+[2024-11-21 01:44:01]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:44:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:44:01] Proses accept dari 127.0.0.1
+[2024-11-21 01:44:01]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:44:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:44:01] Proses accept dari 127.0.0.1
+[2024-11-21 01:44:01] Proses accept dari 127.0.0.1
+[2024-11-21 01:44:01]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 01:44:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:44:01]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 01:44:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:44:07] Proses accept dari 127.0.0.1
+[2024-11-21 01:44:07]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:44:07]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:46:01] Proses accept dari 127.0.0.1
+[2024-11-21 01:46:01]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:46:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:47:05] Proses accept dari 127.0.0.1
+[2024-11-21 01:47:05]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:47:05]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:51:37] Proses accept dari 127.0.0.1
+[2024-11-21 01:51:37]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 01:51:37]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:51:58] Proses accept dari 127.0.0.1
+[2024-11-21 01:51:58]  * Request : GET / HTTP/1.1
+[2024-11-21 01:51:58]  * Response : HTTP/1.1 200 OK
+[2024-11-21 01:57:30]  * Response : HTTP/1.1 400 Bad Request
+[2024-11-21 01:57:47] Proses accept dari 127.0.0.1
+[2024-11-21 01:57:47]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 01:57:47]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:00:43] Proses accept dari 127.0.0.1
+[2024-11-21 02:00:43]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 02:00:43]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:18] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:18]  * Request : GET / HTTP/1.1
+[2024-11-21 02:02:18]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:18] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:18]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:02:18]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:18] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:18]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:02:18]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:19] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:19] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:19]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:02:19]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:19]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:02:19]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:22] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:22]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 02:02:22]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:27] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:27]  * Request : GET /contact.html HTTP/1.1
+[2024-11-21 02:02:27]  * Response : HTTP/1.1 404 Not Found
+[2024-11-21 02:02:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:34]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 02:02:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:34]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:02:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:34]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:02:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:34]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:02:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:02:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:02:34]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:02:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:05:01] Proses accept dari 127.0.0.1
+[2024-11-21 02:05:01]  * Request : GET / HTTP/1.1
+[2024-11-21 02:05:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:08] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:08]  * Request : GET / HTTP/1.1
+[2024-11-21 02:08:08]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:08] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:08]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:08:08]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:08] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:08]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:08:08]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:08] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:08] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:08]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:08:08]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:08]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:08:08]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:18] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:18]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 02:08:18]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:35] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:35]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 02:08:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:35] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:35]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:08:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:35] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:35]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:08:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:35] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:35]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:08:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:08:35] Proses accept dari 127.0.0.1
+[2024-11-21 02:08:35]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:08:35]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:24] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:24]  * Request : GET / HTTP/1.1
+[2024-11-21 02:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:24] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:24]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:24] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:24]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:24] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:24] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:24]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:24]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:14:24]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:26] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:26]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 02:14:26]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:29] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:29]  * Request : GET /contact.html HTTP/1.1
+[2024-11-21 02:14:29]  * Response : HTTP/1.1 404 Not Found
+[2024-11-21 02:14:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:34]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 02:14:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:34]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:14:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:34]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:14:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:34]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:14:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:14:34] Proses accept dari 127.0.0.1
+[2024-11-21 02:14:34]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:14:34]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:49]  * Request : GET / HTTP/1.1
+[2024-11-21 02:21:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:49]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:21:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:49]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:21:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:50] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:50] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:50]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:21:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:50]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:21:50]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:52] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:52]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 02:21:52]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:21:56] Proses accept dari 127.0.0.1
+[2024-11-21 02:21:56]  * Request : GET /contact.html HTTP/1.1
+[2024-11-21 02:21:56]  * Response : HTTP/1.1 404 Not Found
+[2024-11-21 02:22:01] Proses accept dari 127.0.0.1
+[2024-11-21 02:22:01]  * Request : GET /index.html HTTP/1.1
+[2024-11-21 02:22:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:22:01] Proses accept dari 127.0.0.1
+[2024-11-21 02:22:01]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:22:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:22:01] Proses accept dari 127.0.0.1
+[2024-11-21 02:22:01]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:22:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:22:01] Proses accept dari 127.0.0.1
+[2024-11-21 02:22:01]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:22:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:22:01] Proses accept dari 127.0.0.1
+[2024-11-21 02:22:01]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:22:01]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:26:35] Web Server sedang berjalan
+[2024-11-21 02:26:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:26:49]  * Request : GET / HTTP/1.1
+[2024-11-21 02:26:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:26:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:26:49]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:26:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:26:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:26:49]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:26:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:26:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:26:49] Proses accept dari 127.0.0.1
+[2024-11-21 02:26:49]  * Request : GET /style.css HTTP/1.1
+[2024-11-21 02:26:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:26:49]  * Request : GET /cameraman.png HTTP/1.1
+[2024-11-21 02:26:49]  * Response : HTTP/1.1 200 OK
+[2024-11-21 02:26:52] Proses accept dari 127.0.0.1
+[2024-11-21 02:26:52]  * Request : GET /about.html HTTP/1.1
+[2024-11-21 02:26:52]  * Response : HTTP/1.1 200 OK

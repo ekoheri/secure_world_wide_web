@@ -6,6 +6,8 @@
         "inet.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "config.h": "c"
+        "config.h": "c",
+        "stdint.h": "c",
+        "http.h": "c"
     }
 }
