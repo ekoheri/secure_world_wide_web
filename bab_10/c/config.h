@@ -10,8 +10,6 @@ typedef struct {
     char document_root[256];
     char default_page[256];
     char log_directory[256];
-    int request_buffer_size;
-    int response_buffer_size;
     char server_cgi[256];
     int port_cgi;
 } Config;
