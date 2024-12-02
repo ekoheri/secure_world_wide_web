@@ -78,10 +78,6 @@ void load_config(const char *filename) {
                 strncpy(config.document_root, value, sizeof(config.document_root));
             } else if (strcmp(key, "log_directory") == 0) {
                 strncpy(config.log_directory, value, sizeof(config.log_directory));
-            } else if (strcmp(key, "request_buffer_size") == 0) {
-                config.request_buffer_size = atoi(value);
-            } else if (strcmp(key, "response_buffer_size") == 0) {
-                config.response_buffer_size = atoi(value);
             }
         }
     }

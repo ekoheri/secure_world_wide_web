@@ -5,7 +5,6 @@
 
 // Struktur data untuk konfigurasi
 typedef struct {
-    unsigned long response_buffer_size;
     char encrypt_directory[256];
     char encryption_type[64];
 } Config;

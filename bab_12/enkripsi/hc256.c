@@ -92,7 +92,7 @@ char *decrypt(const char *ciphertext, const char *key, long length) {
 
     // Mengonversi ciphertext dari hex ke bytes
     for (int i = 0; i < length; i++) {
-        sscanf(ciphertext + (i * 2), "%02x", &encrypted_bytes[i]);
+        sscanf(ciphertext + (i * 2), "%02hhx", &encrypted_bytes[i]);
     }
 
     char *output = (char *)malloc(length + 1);

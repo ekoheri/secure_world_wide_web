@@ -17,15 +17,16 @@ RequestHeader parse_request_line(char *request) {
     RequestHeader req_header = {
         .method = "",
         .uri = "",
-        .http_version = ""
-        .query_string = "";
-        .post_data = "";
+        .http_version = "",
+        .query_string = "",
+        .post_data = ""
     };
 
-    char request_message[config.request_buffer_size];
+    int request_buffer_size = BUFFER_SIZE * 4;
+    char request_message[request_buffer_size];
     char request_line[BUFFER_SIZE];
     char *words[3] = {NULL, NULL, NULL};
-
+    
     // Inisialisasi semua field struct
     memset(&req_header, 0, sizeof(req_header));
 
@@ -34,8 +35,8 @@ RequestHeader parse_request_line(char *request) {
     }
 
     // Baca baris pertama dari rangkaian data request
-    strncpy(request_message, request, config.request_buffer_size);
-    request_message[config.request_buffer_size - 1] = '\0'; 
+    strncpy(request_message, request, request_buffer_size);
+    request_message[request_buffer_size - 1] = '\0'; 
     char *line = strtok(request_message, "\r\n");
     if (line == NULL) {
         return req_header;
@@ -184,6 +185,7 @@ char *run_php_script(
 
     char command[BUFFER_SIZE];
     FILE *fp;
+    int response_buffer_size = 8 * BUFFER_SIZE;
 
     // Menjalankan skrip PHP dengan GET dan POST
     snprintf(command, sizeof(command),
@@ -193,7 +195,7 @@ char *run_php_script(
              query_string, post_data, target);
 
     // Buffer untuk menyimpan seluruh respons
-    char *response = (char *)malloc(config.response_buffer_size);
+    char *response = (char *)malloc(response_buffer_size);
     if (response == NULL) {
         perror("malloc");
         exit(EXIT_FAILURE);
@@ -207,7 +209,7 @@ char *run_php_script(
         exit(EXIT_FAILURE);
     }
 
-    char result[config.response_buffer_size];
+    char result[response_buffer_size];
     int has_error = 0;  // Flag untuk menandakan ada error
 
     // Membaca output dari PHP dan menyusunnya ke dalam response buffer
@@ -218,7 +220,7 @@ char *run_php_script(
             has_error = 1;  // Tandai bahwa ada error
         } else {
             // Tambahkan hasil ke response buffer
-            strncat(response, result, config.response_buffer_size - strlen(response) - 1);
+            strncat(response, result, response_buffer_size - strlen(response) - 1);
         }
     }
 

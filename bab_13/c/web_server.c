@@ -226,7 +226,7 @@ int main() {
     load_config("server.conf");
 
     // Buat Web Server menjadi daemon
-    //set_daemon();
+    set_daemon();
     
     // Buat direktori log
     create_log_directory();

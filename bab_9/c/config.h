@@ -9,8 +9,6 @@ typedef struct {
     int server_port;
     char document_root[256];
     char log_directory[256];
-    int request_buffer_size;
-    int response_buffer_size;
 } Config;
 
 // Deklarasikan variabel global untuk menyimpan konfigurasi

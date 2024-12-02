@@ -46,7 +46,8 @@ def start_server():
 
 def handle_client(sock_client):
     try:
-        request = sock_client.recv(cfg.request_buffer_size)
+        request_buffer_size = 4096
+        request = sock_client.recv(request_buffer_size)
         if not request:
             return
         

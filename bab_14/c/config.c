@@ -68,9 +68,7 @@ void load_config(const char *filename) {
             value = trim(value);
 
             // Menangani key tertentu
-            if (strcmp(key, "response_buffer_size") == 0) {
-                config.response_buffer_size = atoi(value);
-            } else if (strcmp(key, "encrypt_directory") == 0) {
+            if (strcmp(key, "encrypt_directory") == 0) {
                 strncpy(config.encrypt_directory, value, sizeof(config.encrypt_directory));
             } else if (strcmp(key, "encryption_type") == 0) {
                 strncpy(config.encryption_type, value, sizeof(config.encryption_type));

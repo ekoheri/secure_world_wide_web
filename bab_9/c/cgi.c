@@ -70,15 +70,16 @@ void handle_client(int sock_client) {
     int request_size;
     int response_size = 0;
     char method[16] = {0}, uri[256] = {0}, http_version[16] = {0};
+    int request_buffer_size = 4096;
 
-    request = (char *)malloc(config.request_buffer_size * sizeof(char));
+    request = (char *)malloc(request_buffer_size * sizeof(char));
     if (!request) {
         write_log("Gagal mengalokasikan memory untuk request");
         close(sock_client);
         return;
     }
 
-    request_size = read(sock_client, request, config.request_buffer_size - 1);
+    request_size = read(sock_client, request, request_buffer_size - 1);
     if (request_size < 0) {
         write_log("Proses baca request dari client gagal");
         close(sock_client);

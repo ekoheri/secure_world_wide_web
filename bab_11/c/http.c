@@ -279,14 +279,15 @@ char *handle_method(int *response_size, RequestHeader req_header) {
             int total_bytes_received = 0;
             int cgi_status_error = 0;
             size_t output_len;
+            long response_cgi_buffer_size = 8 * BUFFER_SIZE;
 
-            response_cgi_buffer = (char *)malloc(config.response_buffer_size);
+            response_cgi_buffer = (char *)malloc(response_cgi_buffer_size);
             if (response_cgi_buffer == NULL) {
                 fprintf(stderr, "Malloc response CGI buffer gagal\n");
                 exit(EXIT_FAILURE);
             }
             // Mengosongkan buffer
-            memset(response_cgi_buffer, 0, config.response_buffer_size);
+            memset(response_cgi_buffer, 0, response_cgi_buffer_size);
 
             // 1. Inisialisasi socket
             if ((sock_client = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -316,18 +317,18 @@ char *handle_method(int *response_size, RequestHeader req_header) {
                             write_log("Error: Gagal mengirim permintaan ke Server CGI");
                         } else {
                             // 4. Read Response dari CGI server
+                            memset(response_cgi_buffer, 0, response_cgi_buffer_size);
                             memset(temp_cgi_buffer, 0, BUFFER_SIZE);
-                            while ((response_cgi = read(sock_client, temp_cgi_buffer, config.response_buffer_size - 1)) > 0) {
+                            while ((response_cgi = read(sock_client, temp_cgi_buffer, BUFFER_SIZE - 1)) > 0) {
                                 temp_cgi_buffer[response_cgi] = '\0';
 
                                 // Menyimpan respons ke buffer lengkap
-                                if ((total_bytes_received + response_cgi) < (config.response_buffer_size - 1)) {
+                                if ((total_bytes_received + response_cgi) < (response_cgi_buffer_size - 1)) {
                                     strcat(response_cgi_buffer, temp_cgi_buffer);
                                     total_bytes_received += response_cgi;
                                 } else {
-                                    cgi_status_error = 1;
-                                    write_log("Error: Buffer terlalu kecil untuk menerima semua data");
-                                    break;
+                                    response_cgi_buffer_size *= 2;
+                                    response_cgi_buffer = realloc(response_cgi_buffer, response_cgi_buffer_size);
                                 }
                                 // Reset buffer untuk pembacaan berikutnya
                                 memset(temp_cgi_buffer, 0, BUFFER_SIZE);

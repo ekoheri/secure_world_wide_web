@@ -102,18 +102,11 @@ char *handle_respose(char *url, char *form_data) {
     char path[BUFFER_SIZE] = {0};
     int port = 0;
     int total_bytes_received = 0;
+    long response_buffer_size = 8 * BUFFER_SIZE;
     
     char *header = NULL;
     char *body = NULL;
 
-    response_buffer = (char *)malloc(config.response_buffer_size);
-    if (response_buffer == NULL) {
-        fprintf(stderr, "Malloc response buffer gagal\n");
-        exit(EXIT_FAILURE);
-    }
-    // Mengosongkan buffer
-    memset(response_buffer, 0, config.response_buffer_size);
-    
     handle_url(url, hostname, path, &port, protocol);
 
     if ((server = gethostbyname(hostname)) == NULL) {
@@ -156,16 +149,25 @@ char *handle_respose(char *url, char *form_data) {
         body = "<h1>Error : Gagal mengirim permintaan ke server!</h1>";
     }
 
+    response_buffer = (char *)malloc(response_buffer_size);
+    if (response_buffer == NULL) {
+        fprintf(stderr, "Malloc response buffer gagal\n");
+        exit(EXIT_FAILURE);
+    }
+    // Mengosongkan buffer
+    memset(response_buffer, 0, response_buffer_size);
+
     memset(buffer, 0, BUFFER_SIZE);
     while ((response = read(sock_client, buffer, BUFFER_SIZE - 1)) > 0) {
         buffer[response] = '\0';
 
-        if (total_bytes_received + response < config.response_buffer_size - 1) {
+        if (total_bytes_received + response < response_buffer_size - 1) {
             strcat(response_buffer, buffer);
             total_bytes_received += response;
         } else {
-            fprintf(stderr, "konfigurasi Response Buffer terlalu kecil\n");
-            break;
+            //Jika buffer terlalu kecil, maka re-alokasi ukuran buffer
+            response_buffer_size *= 2;
+            response_buffer = realloc(response_buffer, response_buffer_size);
         }
         memset(buffer, 0, BUFFER_SIZE);  
     }
@@ -189,14 +191,12 @@ char *handle_respose(char *url, char *form_data) {
             const char *key = "1234567890123456789012345678901234567890";
             char *decrypt_body = call_decrypt(body, key, headers.content_length);
 
-            if (decrypt_body != NULL) { // Pastikan decrypt_body tidak NULL
-                // Pastikan body cukup besar untuk menampung decrypt_body
-                //memset(body, 0, headers.content_length);
+            if (decrypt_body != NULL) { 
                 strcpy(body, decrypt_body);
                 free(decrypt_body);
             } else {
                 // Tangani kesalahan dekripsi jika diperlukan
-                fprintf(stderr, "Decryption failed.\n");
+                body = "<h1>Error : Proses Dekrip GAGAL!</h1>";
             }
         }
         free_response_headers(&headers);

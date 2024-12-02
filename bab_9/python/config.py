@@ -6,8 +6,6 @@ class Config:
         self.server_port = 0
         self.document_root = ""
         self.log_directory = ""
-        self.request_buffer_size = 0
-        self.response_buffer_size = 0
 
 # Global config object
 cfg = Config()
@@ -55,8 +53,4 @@ def load_config(filename):
                     cfg.document_root = value
                 elif key == "log_directory":
                     cfg.log_directory = value
-                elif key == "request_buffer_size":
-                    cfg.request_buffer_size = int(value)
-                elif key == "response_buffer_size":
-                    cfg.response_buffer_size = int(value)
 #End def load_config
