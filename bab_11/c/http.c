@@ -26,7 +26,8 @@ RequestHeader parse_request_line(char *request) {
         .http_version = ""
     };
 
-    char request_message[config.request_buffer_size];
+    int request_buffer_size = 4096;
+    char request_message[request_buffer_size];
     char request_line[BUFFER_SIZE];
     char *words[3] = {NULL, NULL, NULL};
 
@@ -38,8 +39,8 @@ RequestHeader parse_request_line(char *request) {
     }
 
     // Baca baris pertama dari rangkaian data request
-    strncpy(request_message, request, config.request_buffer_size);
-    request_message[config.request_buffer_size - 1] = '\0'; 
+    strncpy(request_message, request, request_buffer_size);
+    request_message[request_buffer_size - 1] = '\0'; 
     char *line = strtok(request_message, "\r\n");
     if (line == NULL) {
         return req_header;
