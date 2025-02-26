@@ -12,63 +12,56 @@
 extern Config config;
 
 RequestHeader parse_request_line(char *request) {
-    RequestHeader req_header = {
-        .method = "",
-        .uri = "",
-        .http_version = ""
-    };
-    char request_message[config.request_buffer_size];
-    char request_line[BUFFER_SIZE];
-    char *words[3] = {NULL, NULL, NULL}; 
+    RequestHeader req_header = {0}; // Inisialisasi semua field ke 0
+    const char *line = request;
+    int line_count = 0;
 
-    // Inisialisasi semua field struct
-    memset(&req_header, 0, sizeof(req_header));
+    while (line && *line) {
+        const char *next_line = strstr(line, "\r\n");
+        size_t line_length = next_line ? (size_t)(next_line - line) : strlen(line);
+        
+        if (line_length == 0) {
+            line = next_line ? next_line + 2 : NULL;
+            break;
+        }
 
-    if (request == NULL || strlen(request) == 0) {
-        return req_header;
-    }
-    // Baca baris pertama dari rangkaian data request
-    strncpy(request_message, request, config.request_buffer_size);
-    request_message[config.request_buffer_size - 1] = '\0'; 
-    char *line = strtok(request_message, "\r\n");
-    if (line == NULL) {
-        return req_header;
-    }
-    strncpy(request_line, line, BUFFER_SIZE);
-    request_line[BUFFER_SIZE - 1] = '\0';
+        char *line_copy = strndup(line, line_length);
 
-    //log
-    printf(" * Request : %s\n", request_line);
+        if (line_count == 0) { // Request Line (Baris Pertama)
+            char *words[3] = {NULL, NULL, NULL};
+            int i = 0;
+            char *token = strtok(line_copy, " ");
 
-    // Pilah request line berdasarkan spasi
-    int i = 0;
-    char *token = strtok(request_line, " ");
-    while (token != NULL && i < 3) {
-        words[i++] = token;
-        token = strtok(NULL, " ");
-    }
+            while (token && i < 3) {
+                words[i++] = token;
+                token = strtok(NULL, " ");
+            }
 
-    // Pastikan ada 3 komponen dalam request line
-    if (i < 3) {
-        return req_header;
-    }
+            if (i == 3) {
+                strncpy(req_header.method, words[0], sizeof(req_header.method) - 1);
+                req_header.uri = strdup(words[1]);
+                strncpy(req_header.http_version, words[2], sizeof(req_header.http_version) - 1);
 
-     // kata 1 : Method, kata 2 : uri, kata 3 : versi HTTP
-    strcpy(req_header.method, words[0]);
-    strcpy(req_header.uri, words[1]);
-    strcpy(req_header.http_version, words[2]);
+                // Hapus tanda '/' pada URI jika ada
+                if (req_header.uri[0] == '/') {
+                    memmove(req_header.uri, req_header.uri + 1, strlen(req_header.uri));
+                }
 
-    if (req_header.uri[0] == '/') {
-        memmove(req_header.uri, req_header.uri + 1, strlen(req_header.uri));
+            }
+        }
+
+        free(line_copy);
+        line = next_line ? next_line + 2 : NULL; // Pindah ke baris berikutnya
+        line_count++;
     }
 
-    // Jika uri kosong, 
-    // maka isi uri dgn resource default yaitu index.html
-    if (strlen(req_header.uri) == 0) {
-        strcpy(req_header.uri, config.default_page);
+    // Jika URI kosong, gunakan "index.html"
+    if (!req_header.uri || strlen(req_header.uri) == 0) {
+        free(req_header.uri);
+        req_header.uri = strdup("index.html");
     }
 
-    return req_header;  // Kembalikan struct
+    return req_header;
 } //end parse_request_line
 
 const char *get_mime_type(const char *file) {
