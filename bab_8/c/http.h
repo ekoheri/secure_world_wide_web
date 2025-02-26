@@ -3,7 +3,7 @@
 
 typedef struct {
     char method[16];
-    char uri[128];
+    char *uri;
     char http_version[16];
 } RequestHeader;
 

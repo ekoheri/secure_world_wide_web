@@ -152,4 +152,4 @@ int main() {
     return 0;
 }
 
-//compile : gcc -o web_server web_server.c http.c -I.
+//compile : gcc -o web_server web_server.c http.c config.c -I.
