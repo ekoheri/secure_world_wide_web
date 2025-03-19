@@ -27,7 +27,7 @@ void write_log(const char *format, ...) {
 
     // Format tanggal untuk nama file log
     char log_filename[100];
-    snprintf(log_filename, sizeof(log_filename), "%s%04d-%02d-%02d.log",
+    snprintf(log_filename, sizeof(log_filename), "%s/%04d-%02d-%02d.log",
          config.log_directory, t->tm_year + 1900, t->tm_mon + 1, t->tm_mday); // Simpan di dalam folder logs
 
     FILE *log_file = fopen(log_filename, "a"); // Buka file log untuk menambahkan

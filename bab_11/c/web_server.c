@@ -200,10 +200,10 @@ void set_daemon() {
     }
 
     // Mengubah working directory ke root
-    if (chdir("/") < 0) {
+    /*if (chdir("/") < 0) {
         perror("chdir() failed");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     // Alihkan STDIN, STDOUT, dan STDERR ke /dev/null
     int devnull = open("/dev/null", O_RDWR);
@@ -238,9 +238,6 @@ int main() {
     return 0;
 }
 
-// compile : gcc -o web_server web_server.c http.c config.c log.c
-// run : ./web_server &
-
 // Kill :
 // ps aux | grep web_server | grep -v grep
-// kill -9 <Nomor PID>
+// kill <Nomor PID>

@@ -3,10 +3,14 @@
 
 typedef struct {
     char method[16];
-    char uri[128];
+    char *directory;
+    char *uri;
     char http_version[16];
-    char query_string[1024];
-    char post_data[1024];
+    char *query_string;
+    char *path_info;
+    char *body_data;
+    char *request_time;
+    int content_length;
 } RequestHeader;
 
 typedef struct {

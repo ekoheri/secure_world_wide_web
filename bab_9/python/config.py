@@ -5,7 +5,8 @@ class Config:
         self.server_name = ""
         self.server_port = 0
         self.document_root = ""
-        self.log_directory = ""
+        self.default_page = ""
+        self.request_buffer_size = 0
 
 # Global config object
 cfg = Config()
@@ -51,6 +52,8 @@ def load_config(filename):
                     cfg.server_port = int(value)
                 elif key == "document_root":
                     cfg.document_root = value
-                elif key == "log_directory":
-                    cfg.log_directory = value
+                elif key == "default_page":
+                    cfg.default_page = value
+                elif key == "request_buffer_size":
+                    cfg.request_buffer_size = int(value)
 #End def load_config

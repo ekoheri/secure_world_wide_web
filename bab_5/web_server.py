@@ -53,7 +53,7 @@ def handle_client(sock_client):
             "<head><title>Hello World</title></head>"
             "<body>"
             "<h1>Hello, World!</h1>"
-            "<p>Ini python</p>"
+            "<h3>Ini python</h3>"
             "</body>"
             "</html>"
         )

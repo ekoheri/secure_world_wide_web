@@ -9,9 +9,10 @@ typedef struct {
     int server_port;
     char document_root[256];
     char default_page[256];
+    int request_buffer_size;
     char log_directory[256];
-    char server_cgi[256];
-    int port_cgi;
+    char server_fpm[256];
+    int port_fpm;
     int max_event;
 } Config;
 

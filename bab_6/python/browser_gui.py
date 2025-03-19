@@ -1,92 +1,75 @@
-# sudo apt update
-# Install : Instal PyGObject
-# sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0
-# Opsional install Instal GTK+ WebKit
-# sudo apt install gir1.2-webkit2-4.0
-# sudo apt install libcairo2-dev libgirepository1.0-dev
-# python3.10 -m pip install PyGObject
-import gi
-gi.require_version('Gtk', '3.0')
-gi.require_version('WebKit2', '4.0')
+# pip3.10 install PyQt6 PyQt6-WebEngine
 
-from gi.repository import Gtk, WebKit2, Gdk
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLineEdit, QPushButton, QHBoxLayout
+from PyQt6.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtCore import QUrl
+from PyQt6.QtWebEngineCore import QWebEnginePage
 
-# Fungsi callback untuk memuat URL saat tombol "Enter" ditekan
-def on_activate_entry(entry, web_view, spinner):
-    url = entry.get_text()
-    web_view.load_uri(url)
+class CustomWebEnginePage(QWebEnginePage):
+    def javaScriptConsoleMessage(self, level, message, lineNumber, sourceID):
+        pass  # Jangan tampilkan pesan JavaScript di terminal
 
-# Fungsi untuk menampilkan dan menyembunyikan spinner
-def on_load_changed(web_view, load_event, spinner):
-    if load_event == WebKit2.LoadEvent.STARTED:
-        # Tampilkan spinner saat halaman mulai dimuat
-        spinner.start()
-        spinner.show()
-    elif load_event == WebKit2.LoadEvent.FINISHED:
-        # Sembunyikan spinner setelah halaman selesai dimuat
-        spinner.stop()
-        spinner.hide()
+class WebBrowser(QMainWindow):
+    def __init__(self):
+        super().__init__()
 
-# Fungsi untuk menampilkan halaman website
-def display_html():
-    # Inisialisasi GTK
-    Gtk.init()
+        self.setWindowTitle("Simple Web Browser")
+        self.setGeometry(100, 100, 900, 600)
 
-    settings = Gtk.Settings.get_default()
-    settings.set_property("gtk-overlay-scrolling", False)
+        # Widget utama
+        self.browser = QWebEngineView()
+        self.browser.setPage(CustomWebEnginePage(self))  # Pakai custom page
+        #self.browser.setUrl(QUrl("https://www.google.com"))
 
-    # Buat window utama
-    window = Gtk.Window(title="My Browser")
-    
-    # Dapatkan ukuran layar
-    display = Gdk.Display.get_default()
-    monitor = display.get_primary_monitor()
-    monitor_geometry = monitor.get_geometry()
+        # Input URL
+        self.url_bar = QLineEdit()
+        self.url_bar.setPlaceholderText("Enter URL here...")
+        self.url_bar.returnPressed.connect(self.load_url)
 
-    # Atur ukuran window
-    screen_width = monitor_geometry.width
-    screen_height = monitor_geometry.height
-    window.set_default_size(screen_width, screen_height)
+        # Tombol Go / Loading
+        self.go_button = QPushButton("Go")
+        self.go_button.clicked.connect(self.load_url)
 
-    # Buat widget WebKit untuk menampilkan halaman web
-    web_view = WebKit2.WebView()
+        # Layout atas (URL bar + tombol)
+        top_layout = QHBoxLayout()
+        top_layout.addWidget(self.url_bar)
+        top_layout.addWidget(self.go_button)
 
-    # Buat entry (textbox) untuk input URL
-    entry = Gtk.Entry()
-    entry.set_placeholder_text("Isi URL dan tekan Enter")
+        # Layout utama
+        main_layout = QVBoxLayout()
+        main_layout.addLayout(top_layout)
+        main_layout.addWidget(self.browser)
 
-    # Buat spinner untuk loading
-    spinner = Gtk.Spinner()
-    spinner.set_size_request(20, 20)
-    spinner.hide()
+        # Set widget utama
+        central_widget = QWidget()
+        central_widget.setLayout(main_layout)
+        self.setCentralWidget(central_widget)
 
-    # Hubungkan sinyal "activate" (tekan Enter) pada entry
-    entry.connect("activate", on_activate_entry, web_view, spinner)
+        # Event Loading
+        self.browser.loadStarted.connect(self.start_loading)
+        self.browser.loadFinished.connect(self.finish_loading)
+        self.browser.titleChanged.connect(self.update_title)
 
-    # Hubungkan sinyal untuk spinner
-    web_view.connect("load-changed", on_load_changed, spinner)
+    def load_url(self):
+        url_text = self.url_bar.text()
+        if not url_text.startswith("http"):
+            url_text = "https://" + url_text  # Tambahkan https jika tidak ada
+        self.browser.setUrl(QUrl(url_text))
 
-    # Buat container horizontal untuk menempatkan entry dan spinner
-    hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
-    hbox.pack_start(entry, True, True, 0)
-    hbox.pack_start(spinner, False, False, 0)
+    def start_loading(self):
+        self.go_button.setText("Loading...")  # Ubah tombol menjadi "Loading..."
+        self.go_button.setEnabled(False)  # Nonaktifkan tombol sementara
 
-    # Buat container vertical untuk mengatur posisi hbox dan WebView
-    vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=2)
-    vbox.pack_start(hbox, False, False, 0)
-    vbox.pack_start(web_view, True, True, 0)
+    def finish_loading(self):
+        self.go_button.setText("Go")  # Kembalikan tombol ke "Go"
+        self.go_button.setEnabled(True)  # Aktifkan kembali tombol
 
-    # Tambahkan vbox ke window
-    window.add(vbox)
-
-    # Tampilkan semua widget di window
-    window.show_all()
-
-    # Tutup program saat window ditutup
-    window.connect("destroy", Gtk.main_quit)
-
-    # Mulai loop GTK
-    Gtk.main()
+    def update_title(self, title):
+        self.setWindowTitle(title)
 
 if __name__ == "__main__":
-    display_html()
+    app = QApplication(sys.argv)
+    window = WebBrowser()
+    window.show()
+    sys.exit(app.exec())

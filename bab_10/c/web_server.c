@@ -8,6 +8,10 @@
 #include <signal.h>
 #include <fcntl.h>
 
+#include <sys/epoll.h>
+#include <errno.h>
+#include <sys/stat.h>
+
 #include "http.h"
 #include "config.h"
 #include "log.h"
@@ -18,7 +22,24 @@ int sock_server;
 struct sockaddr_in serv_addr;
 int addrlen = 0;
 
+int MAX_EVENTS; 
+
+int epoll_fd;
+struct epoll_event event, *events;
+
+void set_nonblocking(int sock) {
+    int flags = fcntl(sock, F_GETFL, 0);
+    fcntl(sock, F_SETFL, flags | O_NONBLOCK);
+}
+
 void start_server() {
+    MAX_EVENTS = config.max_event;
+    events = malloc(sizeof(struct epoll_event) * MAX_EVENTS);
+    if (!events) {
+        write_log("Gagal mengalokasikan memori untuk events");
+        exit(EXIT_FAILURE);
+    }
+
     int opt = 1;
     addrlen = sizeof(serv_addr);
 
@@ -27,6 +48,8 @@ void start_server() {
         write_log("Inisialisasi socket server gagal %d", sock_server);
         exit(EXIT_FAILURE);
     }
+
+    set_nonblocking(sock_server);
 
     // 2. Mengatur opsi socket
     if (setsockopt(sock_server, 
@@ -60,6 +83,11 @@ void start_server() {
         exit(EXIT_FAILURE);
     }
 
+    epoll_fd = epoll_create1(0);
+    event.data.fd = sock_server;
+    event.events = EPOLLIN;
+    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, sock_server, &event);
+
     write_log("Web Server sedang berjalan");
 }
 
@@ -69,7 +97,7 @@ void handle_client(int sock_client) {
     int request_size;
     int response_size = 0;
     char method[16] = {0}, uri[256] = {0}, http_version[16] = {0};
-    int  request_buffer_size = 4096;
+    int request_buffer_size = 4096;
 
     request = (char *)malloc(request_buffer_size * sizeof(char));
     if (!request) {
@@ -108,31 +136,45 @@ void handle_client(int sock_client) {
 void run_server() {
     if (sock_server > 0) {
         while (1) {
-            struct sockaddr_in client_addr;
-            socklen_t addr_len = sizeof(client_addr);
-            int sock_client = accept(
-                sock_server, 
-                (struct sockaddr *)&client_addr, &addr_len
-            );
-            
-            if (sock_client < 0) {
-                perror("Proses accept gagal");
-                continue;
+            int num_fds = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);
+            for (int i = 0; i < num_fds; i++) {
+                if (events[i].data.fd == sock_server) {
+                    // Accept new connection
+                    struct sockaddr_in client_addr;
+                    socklen_t addr_len = sizeof(client_addr);
+                    int sock_client = accept(
+                        sock_server, 
+                        (struct sockaddr *)&client_addr, &addr_len
+                    );
+                    
+                    if (sock_client < 0) {
+                        write_log("Proses accept gagal");
+                        continue;
+                    }
+
+                    char client_ip[INET_ADDRSTRLEN];
+                    inet_ntop(AF_INET, &(client_addr.sin_addr), 
+                        client_ip, INET_ADDRSTRLEN);
+                    write_log("Proses accept dari %s", client_ip);
+                    
+                    set_nonblocking(sock_client);
+
+                    // Add the new client socket to epoll
+                    event.data.fd = sock_client;
+                    event.events = EPOLLIN;
+                    epoll_ctl(epoll_fd, EPOLL_CTL_ADD, sock_client, &event);
+                } else {
+                    // Handle client request
+                    handle_client(events[i].data.fd);
+                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, events[i].data.fd, NULL);
+                }
             }
-
-            char client_ip[INET_ADDRSTRLEN];
-            inet_ntop(AF_INET, &(client_addr.sin_addr), 
-                client_ip, INET_ADDRSTRLEN);
-            write_log("Ada koneksi dari %s", client_ip);
-
-            // Panggil fungsi handle_client
-            handle_client(sock_client);
         }
     }
 }
 
 void stop_server(int signal) {
-  if (signal == SIGINT)
+  if (signal == SIGINT || signal == SIGTERM)
   {
     close(sock_server);
     write_log("Web Server telah dihentikan.");
@@ -158,10 +200,10 @@ void set_daemon() {
     }
 
     // Mengubah working directory ke root
-    if (chdir("/") < 0) {
+    /*if (chdir("/") < 0) {
         perror("chdir() failed");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     // Alihkan STDIN, STDOUT, dan STDERR ke /dev/null
     int devnull = open("/dev/null", O_RDWR);
@@ -196,9 +238,6 @@ int main() {
     return 0;
 }
 
-// compile : gcc -o web_server web_server.c http.c config.c log.c
-// run : ./web_server &
-
 // Kill :
 // ps aux | grep web_server | grep -v grep
-// kill -9 <Nomor PID>
+// kill <Nomor PID>

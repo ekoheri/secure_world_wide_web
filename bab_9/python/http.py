@@ -1,19 +1,23 @@
 import os
 import mimetypes
-import subprocess
-import sys
+import re
 from datetime import datetime
+from urllib.parse import unquote
 from config import cfg
-from log import write_log
+from fpm import php_fpm_request
 
 # Data struktur untuk RequestHeader dan ResponseHeader
 class RequestHeader:
-    def __init__(self, method="", uri="", http_version="", query_string="", post_data = ""):
+    def __init__(self, directory ="/", method="", uri="", http_version="", query_string = "", path_info="", body_data="", request_time="", content_length=0):
+        self.directory = directory
         self.method = method
         self.uri = uri
         self.http_version = http_version
         self.query_string = query_string
-        self.post_data = post_data
+        self.path_info =path_info
+        self.body_data = body_data 
+        self.request_time = request_time
+        self.content_length = content_length
 
 class ResponseHeader:
     def __init__(self, http_version="HTTP/1.1", status_code=200, status_message="OK", mime_type="text/html", content_length=0):
@@ -26,46 +30,52 @@ class ResponseHeader:
 # Fungsi untuk parsing request line
 def parse_request_line(request):
     req_header = RequestHeader()
-    # Pastikan request yang diterima adalah string
-    if not isinstance(request, str):
-        # print("Request yang diterima tidak valid:", request)  # Debug log
-        write_log("Request tidak valid: %s", request)
-        return req_header
+    # **Pisahkan header dan body berdasarkan pemisah (\r\n\r\n atau \n\n)**
+    header_body_split = request.find("\r\n\r\n")
+    if header_body_split == -1:
+        header_body_split = request.find("\n\n")  # Cek jika pakai LF saja
+    header_data = request[:header_body_split] if header_body_split != -1 else request
+    body_data = request[header_body_split+4:] if header_body_split != -1 else ""
 
-    request_lines = request.split("\r\n")
-    if not request_lines:
-        return req_header
-
-    # Ambil baris pertama (request line)
-    request_line = request_lines[0]
-    words = request_line.split()
-    if len(words) < 3:
-        return req_header
-
-    req_header.method = words[0]
-    req_header.uri = words[1].lstrip("/")  # Hilangkan leading slash
-    req_header.http_version = words[2]
-
-    # Cek apakah ada query string di URI
-    query_start = req_header.uri.find("?")
-    if query_start != -1:
-        # Pisahkan query string dari URI
-        req_header.query_string = req_header.uri[query_start + 1:]
-        req_header.uri = req_header.uri[:query_start]
+    # **Pisahkan baris-baris header**
+    lines = header_data.splitlines()
     
-    # Cek apakah ada body data
-    body_start = request.find("\r\n\r\n")
-    if body_start != -1:
-        # Salin data POST dari body
-        req_header.post_data = request[body_start + 4:]
+    # **Parsing Baris Pertama (Request Line)**
+    if lines:
+        words = lines[0].split(" ", 2)
+        if len(words) == 3:
+            req_header.method = words[0]
+            full_uri = words[1]
+            req_header.http_version = words[2]
 
-    if not req_header.uri:  # Jika URI kosong, gunakan halaman default
-        req_header.uri = "index.html"
+            # **Pisahkan query string**
+            uri, _, query_string = full_uri.partition('?')
+            req_header.query_string = unquote(query_string) if query_string else ""
+            
+            # **Gunakan REGEX untuk Parsing Directory, URI, dan Path Info**
+            pattern = r"^(/?.*?/)?([^/?]+\.[a-zA-Z0-9]+)(/[^?]*)?$"
+            match = re.match(pattern, uri)
+            if match:
+                req_header.directory = match.group(1) or "/"
+                req_header.uri = match.group(2)
+                req_header.path_info = match.group(3) or ""
+            else:
+                req_header.uri = uri  # Jika regex gagal, gunakan langsung
+                
+    # **Parsing Header**
+    for line in lines[1:]:
+        if not line.strip():
+            break  # Akhir dari header
+        
+        if line.startswith("Request-Time: "):
+            req_header.request_time = line[len("Request-Time: "):]
+        elif line.startswith("Content-Length: "):
+            req_header.content_length = int(line[len("Content-Length: "):])
 
-    write_log(" * Request: %s %s %s", \
-        req_header.method, \
-        req_header.uri, \
-        req_header.http_version)
+    # **Parsing Body (gunakan Content-Length jika ada)**
+    if req_header.content_length > 0:
+        req_header.body_data = unquote(body_data[:req_header.content_length])
+
     return req_header
 
 # Fungsi untuk mendapatkan MIME type dari file
@@ -96,82 +106,77 @@ def generate_response_header(res_header):
 def create_response(res_header, body):
     response_header = generate_response_header(res_header)
     response = response_header.encode() + body
-    write_log(" * Respose: %s %s %s", \
-        res_header.http_version, \
-        res_header.status_code, \
-        res_header.status_message)
     return response
-
-def run_php_script(target, query_string, post_data):
-    command = (
-        f"php -r 'parse_str(\"{query_string}\", $_GET); "
-        f"parse_str(\"{post_data}\", $_POST); "
-        f"include \"{target}\";'"
-    )
-
-    # Buffer untuk menyimpan seluruh respons
-    response = ""
-    try:
-        # Menjalankan skrip PHP dan menangkap outputnya
-        result = subprocess.run(command, shell=True, capture_output=True, text=True)
-
-        # Mengecek jika ada kesalahan dalam proses PHP
-        if result.returncode != 0:
-            # Menambahkan error PHP ke response
-            response += "<p>Terjadi kesalahan dalam menjalankan skrip PHP.</p>\n"
-            response += result.stderr  # Menambahkan stderr (error dari PHP) jika ada
-        else:
-            # Menambahkan output PHP ke response
-            response += result.stdout
-
-    except Exception as e:
-        # Jika terjadi kesalahan pada eksekusi, tangani error-nya
-        response += f"<p>Terjadi kesalahan dalam menjalankan skrip PHP: {str(e)}</p>\n"
-
-    return response  # Mengembalikan respons lengkap
-#End def 
 
 # Fungsi untuk menangani method (misalnya GET)
 def handle_method(req_header):
     if not req_header.method or not req_header.uri or not req_header.http_version:
         # Handle Bad Request
-        res_header = ResponseHeader(
-            status_code=400, 
-            status_message="Bad Request", 
-            mime_type="text/html"
-        )
+        res_header = ResponseHeader(status_code=400, status_message="Bad Request", mime_type="text/html")
         body = "<h1>400 Bad Request</h1>".encode()
         res_header.content_length = len(body)
         return create_response(res_header, body)
 
     # Tentukan path file yang diminta
-    file_path = os.path.join(cfg.document_root, req_header.uri)
+    file_path = os.path.join(cfg.document_root, req_header.directory.lstrip("/"), req_header.uri)
+    # print(f"File : {file_path}")
     if not os.path.exists(file_path) or not os.path.isfile(file_path):
         # Handle Not Found
-        res_header = ResponseHeader(
-            http_version=req_header.http_version, 
-            status_code=404, 
-            status_message="Not Found", 
-            mime_type="text/html"
-        )
+        res_header = ResponseHeader(http_version=req_header.http_version, status_code=404, status_message="Not Found", mime_type="text/html")
         body = "<h1>404 Not Found</h1>".encode()
         res_header.content_length = len(body)
         return create_response(res_header, body)
 
-    _, extension = os.path.splitext(req_header.uri)
-    if extension == ".php":
+    # File ditemukan
+    # **Jika file adalah PHP, jalankan melalui PHP-FPM**
+    if req_header.uri.endswith(".php"):
+        php_response = php_fpm_request(
+            req_header.directory,
+            req_header.uri,
+            req_header.method,
+            req_header.query_string,
+            req_header.path_info,
+            req_header.body_data,
+            ""
+        )
+
+        if php_response.body is None:
+            res_header = ResponseHeader(
+                http_version=req_header.http_version,
+                status_code=500,
+                status_message="Internal Server Error",
+                mime_type="text/html"
+            )
+            body = b"<h1>500 Internal Server Error</h1>"
+            res_header.content_length = len(body)
+            return create_response(res_header, body)
+
+        # **Ambil MIME Type dari Header PHP-FPM (default ke "text/html")**
+        mime_type = "text/html"
+        for line in php_response.header.split("\n"):
+            if line.lower().startswith("content-type:"):
+                mime_type = line.split(":", 1)[1].strip()
+                break
+
         res_header = ResponseHeader(
             http_version=req_header.http_version,
             status_code=200,
             status_message="OK",
-            mime_type="text/html"
+            mime_type=mime_type,
+            content_length=len(php_response.body)
         )
-        
-        if req_header.method == "POST":
-            body_content = run_php_script(file_path, "", req_header.post_data)
-        elif req_header.method == "GET":
-            body_content = run_php_script(file_path, req_header.query_string, "")
+        return create_response(res_header, php_response.body.encode())
+    else:
+        # Jika bukan PHP
+        mime_type = get_mime_type(file_path)
+        with open(file_path, "rb") as file:
+            body = file.read()
 
-        res_header.content_length = len(body_content)        
-        body = body_content.encode()
+        res_header = ResponseHeader(
+            http_version=req_header.http_version,
+            status_code=200,
+            status_message="OK",
+            mime_type=mime_type,
+            content_length=len(body)
+        )
         return create_response(res_header, body)

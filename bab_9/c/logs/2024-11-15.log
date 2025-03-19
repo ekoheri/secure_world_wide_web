@@ -1,8 +1,0 @@
-[2024-11-15 07:31:14] Server CGI sedang berjalan
-[2024-11-15 07:31:58]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
-[2024-11-15 07:31:58]  * Response : HTTP/1.1 200 OK
-[2024-11-15 22:14:49] Server CGI sedang berjalan
-[2024-11-15 22:15:12]  * Request : GET /test_get.php?nama=eko&alamat=malang HTTP/1.1
-[2024-11-15 22:15:12]  * Response : HTTP/1.1 200 OK
-[2024-11-15 22:15:35]  * Request : POST /test_post.php HTTP/1.1
-[2024-11-15 22:15:35]  * Response : HTTP/1.1 200 OK

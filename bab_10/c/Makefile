@@ -2,7 +2,7 @@
 TARGET = web_server
 
 # Daftar file sumber
-SRCS = web_server.c http.c config.c log.c
+SRCS = web_server.c http.c config.c fpm.c log.c
 
 # Compiler dan opsi kompilasi
 CC = gcc

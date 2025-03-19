@@ -64,8 +64,6 @@ void load_config(const char *filename) {
 
         if (key != NULL && value != NULL) {
             // Hapus spasi di sekitar key dan value
-            //while (*key == ' ') key++;
-            //while (*value == ' ') value++;
             key = trim(key);
             value = trim(value);
 
@@ -76,8 +74,14 @@ void load_config(const char *filename) {
                 config.server_port = atoi(value);  // Konversi ke integer
             } else if (strcmp(key, "document_root") == 0) {
                 strncpy(config.document_root, value, sizeof(config.document_root));
-            } else if (strcmp(key, "log_directory") == 0) {
-                strncpy(config.log_directory, value, sizeof(config.log_directory));
+            } else if (strcmp(key, "default_page") == 0) {
+                strncpy(config.default_page, value, sizeof(config.default_page));
+            } else if (strcmp(key, "request_buffer_size") == 0) {
+                config.request_buffer_size = atoi(value);
+            } else if (strcmp(key, "server_fpm") == 0) {
+                strncpy(config.server_fpm, value, sizeof(config.server_fpm));
+            } else if (strcmp(key, "port_fpm") == 0) {
+                config.port_fpm = atoi(value);
             }
         }
     }

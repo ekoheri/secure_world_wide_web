@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
+#include <regex.h>
 
 #include <unistd.h>
 #include <sys/time.h>
@@ -13,97 +15,150 @@
 
 #include "http.h"
 #include "config.h"
-#include "log.h"
+#include "fpm.h"
 
 #define BUFFER_SIZE 1024
 
 extern Config config;
 
+int request_buffer_size = BUFFER_SIZE * 4;
+int response_buffer_size = BUFFER_SIZE * 8;
+
+// Fungsi untuk mengonversi hex menjadi karakter
+char hex_to_char(char first, char second) {
+    char hex[3] = {first, second, '\0'};
+    return (char) strtol(hex, NULL, 16);
+}
+
+// Fungsi URL decoding
+void url_decode(const char *src, char *dest) {
+    while (*src) {
+        if (*src == '%') {
+            if (isxdigit(src[1]) && isxdigit(src[2])) {
+                *dest++ = hex_to_char(src[1], src[2]);
+                src += 3;  // Lewati %xx
+            } else {
+                *dest++ = *src++;
+            }
+        } else if (*src == '+') {
+            *dest++ = ' ';  // Konversi '+' menjadi spasi
+            src++;
+        } else {
+            *dest++ = *src++;
+        }
+    }
+    *dest = '\0';  // Null-terminate string hasil decode
+}
+
 RequestHeader parse_request_line(char *request) {
-    RequestHeader req_header = {
-        .method = "",
-        .uri = "",
-        .http_version = ""
-    };
+    RequestHeader req_header = {0};  // Inisialisasi struktur
+    req_header.directory = strdup("/");
+    req_header.uri = strdup("index.html");
+    req_header.query_string = strdup("");
+    req_header.path_info = strdup("");
+    req_header.request_time = strdup("");
+    req_header.content_length = 0;
+    req_header.body_data = strdup("");
 
-    int request_buffer_size = 4096;
-    char request_message[request_buffer_size];
-    char request_line[BUFFER_SIZE];
-    char *words[3] = {NULL, NULL, NULL};
+    const char *line = request;
+    int line_count = 0;
 
-    // Inisialisasi semua field struct
-    memset(&req_header, 0, sizeof(req_header));
+    while (line && *line) {
+        const char *next_line = strstr(line, "\r\n");
+        size_t line_length = next_line ? (size_t)(next_line - line) : strlen(line);
+        if (line_length == 0) {
+            line = next_line ? next_line + 2 : NULL;
+            break;
+        }
 
-    if (request == NULL || strlen(request) == 0) {
-        return req_header;  // Kembalikan struct kosong jika input tidak valid
+        char *line_copy = strndup(line, line_length);
+        if (!line_copy) break;
+
+        if (line_count == 0) {  // **Parsing Baris Pertama**
+            char *words[3] = {NULL, NULL, NULL};
+            int i = 0;
+            char *token = strtok(line_copy, " ");
+            while (token && i < 3) {
+                words[i++] = token;
+                token = strtok(NULL, " ");
+            }
+
+            if (i == 3) {
+                strncpy(req_header.method, words[0], sizeof(req_header.method) - 1);
+                free(req_header.uri);
+                req_header.uri = strdup(words[1]);
+                strncpy(req_header.http_version, words[2], sizeof(req_header.http_version) - 1);
+
+                char *original_uri = strdup(words[1]);  
+                if (!original_uri) return req_header;
+
+                // Pisahkan query string jika ada
+                char *query_start = strchr(original_uri, '?');
+                if (query_start) {
+                    *query_start = '\0';  // Pisahkan URI dan Query String
+                    char *query_decoded = malloc(strlen(query_start + 1) + 1);
+                    if (query_decoded) {
+                        url_decode(query_start + 1, query_decoded);
+                        req_header.query_string = query_decoded;
+                    } 
+                } 
+
+                // **Gunakan REGEX untuk Parsing directory, URI dan PATH INFO**
+                regex_t regex;
+                regmatch_t matches[4];
+                const char *pattern = "^(/?.*/)?([^/]+\\.[a-zA-Z0-9]+)(/.*)?$";
+                regcomp(&regex, pattern, REG_EXTENDED);
+
+                if (regcomp(&regex, pattern, REG_EXTENDED) != 0) {
+                    fprintf(stderr, "Regex compilation failed!\n");
+                    return req_header;
+                }
+                
+                if (regexec(&regex, original_uri, 4, matches, 0) == 0) {
+                    if (matches[1].rm_so != -1) {  // Directory
+                        free(req_header.directory);
+                        req_header.directory = strndup(original_uri + matches[1].rm_so,
+                                                       matches[1].rm_eo - matches[1].rm_so);
+                    }
+                    if (matches[2].rm_so != -1) {  // URI (File)
+                        free(req_header.uri);
+                        req_header.uri = strndup(original_uri + matches[2].rm_so,
+                                                 matches[2].rm_eo - matches[2].rm_so);
+                    }
+                    if (matches[3].rm_so != -1 && matches[3].rm_eo > matches[3].rm_so) {  
+                        free(req_header.path_info);
+                        req_header.path_info = strndup(original_uri + matches[3].rm_so, 
+                                                    matches[3].rm_eo - matches[3].rm_so);
+                    } 
+                } else {
+                    printf("Regex tidak cocok, periksa pola regex!\n");
+                    return req_header; // Hindari segfault dengan keluar lebih awal
+                }
+                regfree(&regex);
+            }
+            
+        } else { // Header Lines
+            if (strncmp(line_copy, "Request-Time: ", 14) == 0) {
+                req_header.request_time = strdup(line_copy + 14);
+            } else if (strncmp(line_copy, "Content-Length: ", 16) == 0) {
+                req_header.content_length = atoi(line_copy + 16);
+            }
+        }
+
+        free(line_copy);
+        line = next_line ? next_line + 2 : NULL;
+        line_count++;
     }
 
-    // Baca baris pertama dari rangkaian data request
-    strncpy(request_message, request, request_buffer_size);
-    request_message[request_buffer_size - 1] = '\0'; 
-    char *line = strtok(request_message, "\r\n");
-    if (line == NULL) {
-        return req_header;
-    }
-    strncpy(request_line, line, BUFFER_SIZE);
-    request_line[BUFFER_SIZE - 1] = '\0';
-
-    //log
-    write_log(" * Request : %s", request_line);
-
-    // Pilah request line berdasarkan spasi
-    int i = 0;
-    char *token = strtok(request_line, " ");
-    while (token != NULL && i < 3) {
-        words[i++] = token;
-        token = strtok(NULL, " ");
+    if (line && *line) {
+        char *body_decoded = malloc(strlen(line) + 1);
+        if (body_decoded) {
+            url_decode(line, body_decoded);
+            req_header.body_data = body_decoded;
+        }
     }
 
-    // Pastikan ada 3 komponen dalam request line
-    if (i < 3) {
-        return req_header;
-    }
-
-    // kata 1 : Method, kata 2 : uri, kata 3 : versi HTTP
-    strcpy(req_header.method, words[0]);
-    strcpy(req_header.uri, words[1]);
-    strcpy(req_header.http_version, words[2]);
-
-    // Hapus tanda / pada URI
-    if (req_header.uri[0] == '/') {
-        memmove(req_header.uri, req_header.uri + 1, strlen(req_header.uri));
-    }
-
-    // Cek apakah ada query string
-    char *query_start = strchr(req_header.uri, '?');
-    if (query_start != NULL) {
-        // Pisahkan query string dari URI
-        *query_start = '\0'; 
-        // Salin query string
-        strcpy(req_header.query_string, query_start + 1); 
-    } else {
-        // Tidak ada query string
-        req_header.query_string[0] = '\0'; 
-    }
-
-    // Cek apakah ada body data
-    char *body_start = strstr(request, "\r\n\r\n");
-    if (body_start != NULL) {
-        // Pindahkan pointer ke awal body data
-        body_start += 4; // Melewati CRLF CRLF
-        // Salin data POST dari body
-        strcpy(req_header.post_data, body_start);
-    } else {
-        req_header.post_data[0] = '\0'; // Tidak ada body data
-    }
-
-    // Jika URI kosong, maka isi URI dengan resource default
-    // yaitu index.html
-    if (strlen(req_header.uri) == 0) {
-        strcpy(req_header.uri, "index.html");
-    }
-
-    return req_header;  // Kembalikan struct
+    return req_header;
 } //end parse_request_line
 
 const char *get_mime_type(const char *file) {
@@ -195,8 +250,27 @@ char *create_response(
     free(response_header);
 
     //log
-    write_log(" * Response : %s %d %s", res_header->http_version, res_header->status_code, res_header->status_message);
+    printf(" * Response : %s %d %s\n", res_header->http_version, res_header->status_code, res_header->status_message);
     return response;
+}
+
+char* get_content_type(const char *header) {
+    const char *content_type_start = strstr(header, "Content-Type:");
+    if (!content_type_start) return NULL;  // Jika tidak ditemukan, return NULL
+
+    content_type_start += 13;  // Geser ke setelah "Content-Type:"
+
+    // Hilangkan spasi yang mungkin ada di depan
+    while (*content_type_start == ' ') {
+        content_type_start++;
+    }
+
+    // Ambil nilai Content-Type
+    char *content_type = strdup(content_type_start);
+    char *newline_pos = strchr(content_type, '\n'); // Cari akhir baris
+    if (newline_pos) *newline_pos = '\0';  // Potong di newline
+
+    return content_type;  // Return hasil (jangan lupa free() setelah digunakan)
 }
 
 char *handle_method(int *response_size, RequestHeader req_header) {
@@ -219,7 +293,8 @@ char *handle_method(int *response_size, RequestHeader req_header) {
 
     // Buka file (resource) yang diminta oleh web browser
     char fileURL[256];
-    snprintf(fileURL, sizeof(fileURL), "%s%s", config.document_root, req_header.uri);
+    snprintf(fileURL, sizeof(fileURL), "%s%s%s", config.document_root, req_header.directory, req_header.uri);
+    //printf("URI : %s\n", fileURL);
     FILE *file = fopen(fileURL, "rb");
 
     if (!file) {
@@ -241,143 +316,46 @@ char *handle_method(int *response_size, RequestHeader req_header) {
         // Jika file resource ditemukan
         // Ambil data MIME type
         const char *extension = strrchr(req_header.uri, '.');
+        
         if (extension && strcmp(extension, ".php") == 0) {
-            // Jalankan CGI
-            char command[1024];
+            ResponseHeader res_header;
+            int php_has_error = 0;  // Flag untuk menandakan ada error
+            Response_PHP_FPM php_fpm = php_fpm_request(
+                req_header.directory,
+                req_header.uri, 
+                req_header.method, 
+                req_header.query_string,
+                req_header.path_info, 
+                req_header.body_data, "");
 
-            if (strcmp(req_header.query_string, "") > 0) {
-                snprintf(command, BUFFER_SIZE, 
-                "GET /%s?%s %s\r\n"
-                "Host: %s\r\n"
-                "Connection: close\r\n"
-                "User-Agent: EkoBrowser/1.0\r\n",
-                req_header.uri, req_header.query_string, 
-                req_header.http_version, config.server_name);
-            } else if (strcmp(req_header.post_data, "") > 0) {
-                snprintf(command, BUFFER_SIZE, 
-                "POST /%s %s\r\n"
-                "Host: %s\r\n"
-                "Connection: close\r\n"
-                "User-Agent: EkoBrowser/1.0\r\n"
-                "\r\n%s", req_header.uri, 
-                req_header.http_version, config.server_name, 
-                req_header.post_data);
+            char *_php_header = php_fpm.header ? strdup(php_fpm.header) : strdup(""); 
+            char *_php_body = php_fpm.body ? strdup(php_fpm.body) : strdup(""); 
+
+            if (strstr(_php_header, "Status: 500 Internal Server Error")) {
+                php_has_error = 1;
+                res_header.http_version = req_header.http_version,
+                res_header.status_code = 500,
+                res_header.status_message = "Internal Server Error",
+                res_header.mime_type = "text/html",
+                res_header.content_length = strlen(_php_body);
             } else {
-                snprintf(command, BUFFER_SIZE, 
-                "GET /%s %s\r\n"
-                "Host: %s\r\n"
-                "Connection: close\r\n"
-                "User-Agent: EkoBrowser/1.0\r\n",
-                req_header.uri, req_header.http_version, config.server_name);
+                //Content-Type: application/json
+                res_header.http_version = req_header.http_version,
+                res_header.status_code = 200,
+                res_header.status_message = "OK",
+                res_header.mime_type = get_content_type(_php_header),
+                res_header.content_length = strlen(_php_body);
             }
 
-            int sock_client = -1, response_cgi = -1;
-            struct sockaddr_in serv_addr;
-            struct hostent *server;
-            char temp_cgi_buffer[BUFFER_SIZE] = {0};
-            char *response_cgi_buffer;
-            char *response_cgi_body;
-            int total_bytes_received = 0;
-            int cgi_status_error = 0;
-            size_t output_len;
-            long response_cgi_buffer_size = 8 * BUFFER_SIZE;
+            response = create_response(response_size, &res_header, _php_body , strlen(_php_body));
+            free(_php_body);
 
-            response_cgi_buffer = (char *)malloc(response_cgi_buffer_size);
-            if (response_cgi_buffer == NULL) {
-                fprintf(stderr, "Malloc response CGI buffer gagal\n");
-                exit(EXIT_FAILURE);
-            }
-            // Mengosongkan buffer
-            memset(response_cgi_buffer, 0, response_cgi_buffer_size);
-
-            // 1. Inisialisasi socket
-            if ((sock_client = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-                cgi_status_error = 1;
-                write_log("Error: Inisialisasi socket client gagal");
-            } else {
-                // Mendapatkan informasi server berdasarkan nama "localhost"
-                server = gethostbyname(config.server_cgi);
-                if (server == NULL) {
-                    cgi_status_error = 1;
-                    write_log("Error: Host CGI Server tidak ditemukan");
-                } else {
-                    // Mengisi informasi server (IP Address & port)
-                    memset(&serv_addr, 0, sizeof(serv_addr));
-                    serv_addr.sin_family = AF_INET;
-                    serv_addr.sin_port = htons(config.port_cgi);
-                    memcpy(&serv_addr.sin_addr.s_addr, server->h_addr, server->h_length);
-
-                    // 2. Connect ke server
-                    if (connect(sock_client, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-                        cgi_status_error = 1;
-                        write_log("Error: Koneksi ke CGI Server gagal");
-                    } else {
-                        // 3. Send request ke server
-                        if (send(sock_client, command, strlen(command), 0) < 0) {
-                            cgi_status_error = 1;
-                            write_log("Error: Gagal mengirim permintaan ke Server CGI");
-                        } else {
-                            // 4. Read Response dari CGI server
-                            memset(response_cgi_buffer, 0, response_cgi_buffer_size);
-                            memset(temp_cgi_buffer, 0, BUFFER_SIZE);
-                            while ((response_cgi = read(sock_client, temp_cgi_buffer, BUFFER_SIZE - 1)) > 0) {
-                                temp_cgi_buffer[response_cgi] = '\0';
-
-                                // Menyimpan respons ke buffer lengkap
-                                if ((total_bytes_received + response_cgi) < (response_cgi_buffer_size - 1)) {
-                                    strcat(response_cgi_buffer, temp_cgi_buffer);
-                                    total_bytes_received += response_cgi;
-                                } else {
-                                    response_cgi_buffer_size *= 2;
-                                    response_cgi_buffer = realloc(response_cgi_buffer, response_cgi_buffer_size);
-                                }
-                                // Reset buffer untuk pembacaan berikutnya
-                                memset(temp_cgi_buffer, 0, BUFFER_SIZE);
-                            }
-
-                            if (response_cgi < 0) {
-                                cgi_status_error = 1;
-                                write_log("Error: Gagal menerima respon dari CGI Server");
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (sock_client >= 0) close(sock_client);
-
-            ResponseHeader res_header = {
-                .http_version = req_header.http_version,
-                .status_code = 200,
-                .status_message = "OK",
-                .mime_type = "text/html",
-                .content_length = 0
-            };
-
-            if (cgi_status_error == 0) {
-                // Ambil response body dari CGI
-                response_cgi_body = strstr(response_cgi_buffer, "\r\n\r\n");
-                if (response_cgi_body) {
-                    response_cgi_body += 4;
-                    output_len = strlen(response_cgi_body);
-                } else {
-                    write_log("Error: Tidak ditemukan delimiter header dalam response CGI");
-                    res_header.status_code = 500;
-                    res_header.status_message = "Internal Server Error";
-                    response_cgi_body = "<h1>Internal Server Error</h1>";
-                    output_len = strlen(response_cgi_body);
-                }
-            } else {
-                res_header.status_code = 500;
-                res_header.status_message = "Internal Server Error";
-                response_cgi_body = "<h1>Internal Server Error</h1>";
-                output_len = strlen(response_cgi_body);
-            }
-
-            response = create_response(response_size, &res_header, response_cgi_body, output_len);
-            free(response_cgi_buffer);
+            // Bebaskan `php_fpm.body` untuk mencegah memory leak
+            free(php_fpm.header);
+            free(php_fpm.body);
             return response;
-        } else {
+        }
+        else {
             const char *mime = get_mime_type(req_header.uri);
 
             // Generate header 200 OK
