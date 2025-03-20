@@ -57,6 +57,7 @@ RequestHeader parse_request_line(char *request) {
     req_header.query_string = strdup("");
     req_header.path_info = strdup("");
     req_header.request_time = strdup("");
+    req_header.content_type = strdup("");
     req_header.content_length = 0;
     req_header.body_data = strdup("");
 
@@ -140,6 +141,8 @@ RequestHeader parse_request_line(char *request) {
         } else { // Header Lines
             if (strncmp(line_copy, "Request-Time: ", 14) == 0) {
                 req_header.request_time = strdup(line_copy + 14);
+            } else if (strncmp(line_copy, "Content-Type: ", 14) == 0) {
+                req_header.content_type = strdup(line_copy + 14);
             } else if (strncmp(line_copy, "Content-Length: ", 16) == 0) {
                 req_header.content_length = atoi(line_copy + 16);
             }
@@ -326,7 +329,8 @@ char *handle_method(int *response_size, RequestHeader req_header) {
                 req_header.method, 
                 req_header.query_string,
                 req_header.path_info, 
-                req_header.body_data, "");
+                req_header.body_data, 
+                req_header.content_type);
 
             char *_php_header = php_fpm.header ? strdup(php_fpm.header) : strdup(""); 
             char *_php_body = php_fpm.body ? strdup(php_fpm.body) : strdup(""); 

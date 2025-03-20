@@ -88,6 +88,7 @@ void handle_client(int sock_client) {
      // Tambahkan null terminator pada akhir request
     request[request_size] = '\0';
     RequestHeader req_header = parse_request_line(request);
+    //printf("%s\n", request);
     free(request);
 
     response = handle_method(&response_size, req_header);

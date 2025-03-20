@@ -8,7 +8,7 @@ from fpm import php_fpm_request
 
 # Data struktur untuk RequestHeader dan ResponseHeader
 class RequestHeader:
-    def __init__(self, directory ="/", method="", uri="", http_version="", query_string = "", path_info="", body_data="", request_time="", content_length=0):
+    def __init__(self, directory ="/", method="", uri="", http_version="", query_string = "", path_info="", body_data="", request_time="", content_length=0, content_type =""):
         self.directory = directory
         self.method = method
         self.uri = uri
@@ -18,6 +18,7 @@ class RequestHeader:
         self.body_data = body_data 
         self.request_time = request_time
         self.content_length = content_length
+        self.content_type = content_type
 
 class ResponseHeader:
     def __init__(self, http_version="HTTP/1.1", status_code=200, status_message="OK", mime_type="text/html", content_length=0):
@@ -69,6 +70,8 @@ def parse_request_line(request):
         
         if line.startswith("Request-Time: "):
             req_header.request_time = line[len("Request-Time: "):]
+        elif line.startswith("Content-Type: "):
+            req_header.content_type = line[len("Request-Time: "):]
         elif line.startswith("Content-Length: "):
             req_header.content_length = int(line[len("Content-Length: "):])
 
@@ -137,7 +140,7 @@ def handle_method(req_header):
             req_header.query_string,
             req_header.path_info,
             req_header.body_data,
-            ""
+            req_header.content_type
         )
 
         if php_response.body is None:

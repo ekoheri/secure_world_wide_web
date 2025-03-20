@@ -10,6 +10,7 @@ typedef struct {
     char *path_info;
     char *body_data;
     char *request_time;
+    char *content_type;
     int content_length;
 } RequestHeader;
 
